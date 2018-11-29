@@ -14,6 +14,10 @@
 # define GET_NEXT_LINE_H
 # define BUFF_SIZE 13
 
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+
 typedef struct		s_list
 {
 	char		*content;
@@ -21,4 +25,4 @@ typedef struct		s_list
 	struct s_list	*next;
 }		t_list;
 
-
+#endif

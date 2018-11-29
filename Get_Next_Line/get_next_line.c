@@ -12,69 +12,93 @@
 
 #include "get_next_line.h"
 
-int		check_list(char *str)
+int		check_list(char **str, size_t fd)
 {
 	t_list	*alst;
 
 	alst = lst;
 	while (fd != alst->fd)
 	{
-		if (alst->next)
+		if (alst->(*next))
 			alst = alst->next;
 		else
 		{
 			if (!(alst->next = (t_list*)malloc(sizeof(t_list))))
-				return (0);
+				return (-1);
 			alst = alst->next;
 			alst->fd = fd;
 		}
 	}
-	if (alst->content)
+	if (alst->(*content))
 	{
-		str = alst->content;
+		if (!(*str = ft_strnew(ft_strlen(alst->content))))
+			return (-1);
+		ft_strcpy(*str, alst->content);
 		free(alst->content);
 	}
 	return (1);
 }
 
-int		readqll(char *str)
+int		readqll(char **str)
 {
-	int 	a;
+	int 	lu;
 	char	tmp[BUFF_SIZE + 1];
 
 	a = 0;
-	while (!ft_strchr(str, 10))
+	lu = 1;
+	if (!**str)
+		if (!(*str = strnew(BUFF_SIZE)))
+			return (-1);
+	while (!ft_strchr(*str, 10) && lu)
 	{
-		read(fd, tmp, BUFF_SIZE);
-		if (str)
-		{
-			if (!(ft_strjoin(str, tmp)))
-				return (0);
-		}
-		else
-			ft_strcpy(str, tmp);
+		lu = read(fd, tmp, BUFF_SIZE);
+		tmp[BUFF_SIZE] = '\0';
+		if (!(*str = ft_strjoin(str, tmp)))
+			return (-1);
 	}
+	return (1);
+}
 
+int		last_ft(char **str)
+{
+	t_list	*alst;
+
+	alst = lst;
+	while (fd != alst->fd)
+	{
+		if (alst->(*next))
+			alst = alst->next;
+		else
+		{
+			if (!(alst->next = (t_list*)malloc(sizeof(t_list))))
+				return (-1);
+			alst = alst->next;
+			alst->fd = fd;
+		}
+	}
+	if (alst->(*content))
+	{
+		if (!(*str = ft_strnew(ft_strlen(alst->content))))
+			return (-1);
+		ft_strcpy(*str, alst->content);
+		free(alst->content);
+	}
+	return (1);
 }
 
 int		get_next_line(const int fd, char **line)
 {
 	static t_list	*lst;
-	char	*str;
+	char		*str;
 	int		a;
 
 	if (!lst)
 		if (!(lst = (t_list*)malloc(sizeof(t_list))))
 			return (-1);
-	if (!(str = ft_strnew(BUFF_SIZE)))
+	if (check_list(&str) < 0)
 		return (-1);
-	if (!check_list(str))
-		return (-1);
-	if (!str
-	if (strchr(str, 10))
-
-
-
+	readqll(&str);
+	memccpy(line, str, 10, ft_strlen(str));
 
 
 }
