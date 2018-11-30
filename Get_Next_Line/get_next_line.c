@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 14:38:19 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/11/29 21:54:05 by pacharbo         ###   ########.fr       */
+/*   Updated: 2018/11/30 18:12:25 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int		check_list(char **str, t_list *lst, int fd)
 	t_list	*alst;
 
 	alst = lst;
+	if (fd < 0)
+		return (-1);
 	while (fd != alst->fd)
 	{
 		if (alst->next)
@@ -36,14 +38,14 @@ int		check_list(char **str, t_list *lst, int fd)
 
 int		readqll(char **str, int fd)
 {
-	int 	lu;
+	int		lu;
 	char	tmp[BUFF_SIZE + 1];
 
 	lu = 1;
 	if (!*str)
-		if (!(*str = ft_strnew(BUFF_SIZE)))
+		if (!(*str = ft_strnew(1)))
 			return (-1);
-	while (!ft_strchr(*str, 10) && lu)
+	while (!ft_strchr(*str, 10) && lu > 0)
 	{
 		lu = read(fd, tmp, BUFF_SIZE);
 		tmp[BUFF_SIZE] = '\0';
@@ -95,14 +97,14 @@ int		get_next_line(const int fd, char **line)
 	if ((lu = readqll(&str, fd)) < 0)
 		return (-1);
 	tmp = ft_memccpy(*line, str, 10, ft_strlen(str));
-	line[0][ft_strchr((const char*)*line, 10) - *line] = '\0';
-	if (!*tmp)
-		lu = lu - 23;
-	else
-		if (last_ft(tmp, lst, fd) < 0)
-			return (-1);
+	*tmp = '\0';
+	tmp = ft_strdup(ft_strchr((const char*)str, 10));
+	//line[0][ft_strchr((const char*)*line, 10) - *line] = '\0';
 	ft_strdel(&str);
-	if (lu == -23)
+	if (tmp)
+		if (*tmp)
+			return (last_ft(tmp, lst, fd) < 0 ? -1 : 1);
+	if (!tmp && !lu)
 		return (0);
 	return (1);
 }
@@ -121,8 +123,8 @@ int		main(int ac, char **av)
 	ret = 1;
 	while (ret > 0)
 	{
-		ret = get_next_line(fd,&line);
-		printf("%s\n", line);
+		ret = get_next_line(fd, &line);
+		printf("ret = %d\nline = %s\n", ret, line);
 	}
 	return (0);
 }
