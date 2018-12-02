@@ -1,34 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 16:02:49 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/02 19:13:01 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/08 19:00:40 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/11/14 16:31:52 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	t_list	*res;
-	t_list	*alst;
+	size_t	a;
+	int		b;
 
-	if (!(lst))
-		return (0);
-	alst = f(lst);
-	if (!(alst = ft_lstnew(alst->content, alst->content_size)))
-		return (0);
-	res = alst;
-	lst = lst->next;
-	while (lst)
+	a = 0;
+	b = 0;
+	if (!(needle[0]))
+		return ((char*)haystack);
+	while (haystack[a] && a < len)
 	{
-		if (!ft_lstnewadd(&alst, f(lst)))
-			return (0);
-		lst = lst->next;
+		b = 0;
+		while (haystack[a] == needle[b] && haystack[a] && a < len)
+		{
+			a++;
+			b++;
+		}
+		if (!needle[b])
+			return ((char*)haystack + a - b);
+		else if (!(haystack[a]))
+			break ;
+		else
+			a = a - b;
+		a++;
 	}
-	return (res);
+	return (0);
 }

@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 16:02:49 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/02 19:13:01 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/22 14:41:28 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/11/22 15:18:49 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+size_t		ft_strlcpy(char *dest, char *src, size_t size)
 {
-	t_list	*res;
-	t_list	*alst;
+	size_t	a;
+	size_t	b;
 
-	if (!(lst))
-		return (0);
-	alst = f(lst);
-	if (!(alst = ft_lstnew(alst->content, alst->content_size)))
-		return (0);
-	res = alst;
-	lst = lst->next;
-	while (lst)
+	a = 0;
+	b = ft_strlen(src);
+	if (size)
 	{
-		if (!ft_lstnewadd(&alst, f(lst)))
-			return (0);
-		lst = lst->next;
+		while (src[a] && a < size - 1)
+		{
+			dest[a] = src[a];
+			a++;
+		}
+		dest[a] = '\0';
 	}
-	return (res);
+	return (b);
 }

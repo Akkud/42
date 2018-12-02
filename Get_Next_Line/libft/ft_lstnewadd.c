@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_lstnewadd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 16:02:49 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/02 19:13:01 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/19 17:07:45 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/11/27 16:38:53 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+int		ft_lstnewadd(t_list **alst, t_list *new)
 {
 	t_list	*res;
-	t_list	*alst;
 
-	if (!(lst))
+	if (!(res = (t_list*)malloc(sizeof(*res))))
 		return (0);
-	alst = f(lst);
-	if (!(alst = ft_lstnew(alst->content, alst->content_size)))
-		return (0);
-	res = alst;
-	lst = lst->next;
-	while (lst)
+	if (!new->content)
 	{
-		if (!ft_lstnewadd(&alst, f(lst)))
-			return (0);
-		lst = lst->next;
+		res->content = NULL;
+		res->content_size = new->content_size;
 	}
-	return (res);
+	else
+	{
+		if (!(res->content = ft_memalloc(new->content_size)))
+			return (0);
+		ft_memcpy(res->content, new->content, new->content_size);
+		res->content_size = new->content_size;
+	}
+	(*alst)->next = res;
+	res->next = NULL;
+	*alst = (*alst)->next;
+	return (1);
 }

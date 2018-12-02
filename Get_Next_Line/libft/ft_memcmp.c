@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 16:02:49 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/02 19:13:01 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/12 15:05:50 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/11/19 18:47:10 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+int		ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	t_list	*res;
-	t_list	*alst;
+	size_t			a;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-	if (!(lst))
+	if (n == 0)
 		return (0);
-	alst = f(lst);
-	if (!(alst = ft_lstnew(alst->content, alst->content_size)))
-		return (0);
-	res = alst;
-	lst = lst->next;
-	while (lst)
-	{
-		if (!ft_lstnewadd(&alst, f(lst)))
-			return (0);
-		lst = lst->next;
-	}
-	return (res);
+	a = 0;
+	str1 = (unsigned char*)s1;
+	str2 = (unsigned char*)s2;
+	while (a < n - 1 && str1[a] == str2[a])
+		a++;
+	return (str1[a] - str2[a]);
 }

@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 16:02:49 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/02 19:13:01 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/14 13:27:21 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/11/19 19:42:48 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+char	*ft_strtrim(char const *s)
 {
-	t_list	*res;
-	t_list	*alst;
+	unsigned int	a;
+	unsigned int	start;
+	unsigned int	len;
 
-	if (!(lst))
+	a = 0;
+	if (!s)
 		return (0);
-	alst = f(lst);
-	if (!(alst = ft_lstnew(alst->content, alst->content_size)))
-		return (0);
-	res = alst;
-	lst = lst->next;
-	while (lst)
-	{
-		if (!ft_lstnewadd(&alst, f(lst)))
-			return (0);
-		lst = lst->next;
-	}
-	return (res);
+	if (!s[0])
+		return (ft_strnew(0));
+	while (s[a] && (s[a] == 32 || s[a] == '\n' || s[a] == '\t'))
+		a++;
+	if (!s[a])
+		return (ft_strnew(1));
+	start = a;
+	a = ft_strlen((char*)s) - 1;
+	while (s[a] == 32 || s[a] == '\n' || s[a] == '\t')
+		a--;
+	len = a - start + 1;
+	return (ft_strsub(s, start, len));
 }

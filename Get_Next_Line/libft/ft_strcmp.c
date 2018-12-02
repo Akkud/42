@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 16:02:49 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/02 19:13:01 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/08 20:03:22 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/11/15 17:51:58 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+int		ft_strcmp(const char *s1, const char *s2)
 {
-	t_list	*res;
-	t_list	*alst;
+	int				a;
+	unsigned char	*ss1;
+	unsigned char	*ss2;
 
-	if (!(lst))
-		return (0);
-	alst = f(lst);
-	if (!(alst = ft_lstnew(alst->content, alst->content_size)))
-		return (0);
-	res = alst;
-	lst = lst->next;
-	while (lst)
-	{
-		if (!ft_lstnewadd(&alst, f(lst)))
-			return (0);
-		lst = lst->next;
-	}
-	return (res);
+	a = 0;
+	ss1 = (unsigned char*)s1;
+	ss2 = (unsigned char*)s2;
+	while (ss1[a] && ss2[a] && ss1[a] == ss2[a])
+		a++;
+	return (ss1[a] - ss2[a]);
 }

@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 16:02:49 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/02 19:13:01 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/14 18:56:12 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/11/16 15:13:02 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+void	ft_putnbr_fd(int n, int fd)
 {
-	t_list	*res;
-	t_list	*alst;
-
-	if (!(lst))
-		return (0);
-	alst = f(lst);
-	if (!(alst = ft_lstnew(alst->content, alst->content_size)))
-		return (0);
-	res = alst;
-	lst = lst->next;
-	while (lst)
+	if (n == 0)
+		ft_putchar_fd('0', fd);
+	else
 	{
-		if (!ft_lstnewadd(&alst, f(lst)))
-			return (0);
-		lst = lst->next;
+		if (n < 0)
+		{
+			ft_putchar_fd('-', fd);
+			if (n < (-9))
+				ft_putnbr_fd(n / 10 * (-1), fd);
+			ft_putchar_fd(n % 10 * (-1) + 48, fd);
+		}
+		else
+		{
+			if (n > 9)
+				ft_putnbr_fd(n / 10, fd);
+			ft_putchar_fd(n % 10 + 48, fd);
+		}
 	}
-	return (res);
 }

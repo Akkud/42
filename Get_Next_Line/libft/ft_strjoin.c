@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 16:02:49 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/02 19:13:01 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/12 21:02:45 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/11/19 19:42:14 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	t_list	*res;
-	t_list	*alst;
+	int		a;
+	int		b;
+	char	*str;
 
-	if (!(lst))
+	a = 0;
+	b = 0;
+	if (!s1 || !s2)
 		return (0);
-	alst = f(lst);
-	if (!(alst = ft_lstnew(alst->content, alst->content_size)))
+	if (!(str = ft_strnew(ft_strlen((char*)s1) + ft_strlen((char*)s2) + 1)))
 		return (0);
-	res = alst;
-	lst = lst->next;
-	while (lst)
-	{
-		if (!ft_lstnewadd(&alst, f(lst)))
-			return (0);
-		lst = lst->next;
-	}
-	return (res);
+	ft_strcpy(str, (char*)s1);
+	ft_strcat(str, s2);
+	return (str);
 }

@@ -1,34 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 16:02:49 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/02 19:13:01 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/12 15:46:26 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/11/16 15:15:44 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+size_t	ft_strlcat(char *dest, const char *src, size_t n)
 {
-	t_list	*res;
-	t_list	*alst;
+	size_t	a;
+	size_t	b;
+	size_t	destlen;
+	size_t	srclen;
 
-	if (!(lst))
-		return (0);
-	alst = f(lst);
-	if (!(alst = ft_lstnew(alst->content, alst->content_size)))
-		return (0);
-	res = alst;
-	lst = lst->next;
-	while (lst)
+	a = 0;
+	b = 0;
+	destlen = ft_strlen(dest);
+	srclen = ft_strlen((char*)src);
+	if (n)
 	{
-		if (!ft_lstnewadd(&alst, f(lst)))
-			return (0);
-		lst = lst->next;
+		while (dest[a])
+			a++;
+		while (src[b] && a < n - 1)
+		{
+			dest[a] = src[b];
+			a++;
+			b++;
+		}
+		dest[a] = '\0';
 	}
-	return (res);
+	if (n >= destlen)
+		return (destlen + srclen);
+	return (srclen + n);
 }
