@@ -6,19 +6,20 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 14:38:19 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/02 23:10:08 by pacharbo         ###   ########.fr       */
+/*   Updated: 2018/12/04 17:25:13 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "libft/libft.h"
 
-static int		check_list(char **str, t_list **lst, int fd)
+static int		check_list(char **str, t_gnl **lst, int fd)
 {
-	t_list	*alst;
+	t_gnl	*alst;
 
 	if (!*lst)
 	{
-		if (!(*lst = (t_list*)malloc(sizeof(t_list))))
+		if (!(*lst = (t_gnl*)malloc(sizeof(t_gnl))))
 			return (-1);
 		(*lst)->next = NULL;
 	}
@@ -66,9 +67,9 @@ static int		readqll(char **str, int fd)
 	return (1);
 }
 
-static int		last_ft(char *tmp, t_list *lst, int fd)
+static int		last_ft(char *tmp, t_gnl *lst, int fd)
 {
-	t_list	*alst;
+	t_gnl	*alst;
 
 	alst = lst;
 	if (!tmp[0])
@@ -79,7 +80,7 @@ static int		last_ft(char *tmp, t_list *lst, int fd)
 			alst = alst->next;
 		else
 		{
-			if (!(alst->next = (t_list*)malloc(sizeof(t_list))))
+			if (!(alst->next = (t_gnl*)malloc(sizeof(t_gnl))))
 				return (-1);
 			alst = alst->next;
 			alst->fd = fd;
@@ -94,7 +95,7 @@ static int		last_ft(char *tmp, t_list *lst, int fd)
 
 int				get_next_line(const int fd, char **line)
 {
-	static t_list	*lst;
+	static t_gnl	*lst;
 	char			*str;
 	char			*tmp;
 	int				lu;
