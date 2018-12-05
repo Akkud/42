@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/29 19:26:20 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/04 19:39:01 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/11 19:02:30 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/11/14 21:11:29 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 11000
+#include "libft.h"
 
-# include <fcntl.h>
-
-typedef struct	s_gnl
+void	ft_bzero(void *s, size_t n)
 {
-	char			*content;
-	int				fd;
-	struct s_gnl	*next;
-}				t_gnl;
+	size_t	a;
+	char	*str;
 
-int				get_next_line(const int fd, char **line);
-#endif
+	a = 0;
+	str = (char*)s;
+	while (a < n)
+	{
+		str[a] = 0;
+		a++;
+	}
+}

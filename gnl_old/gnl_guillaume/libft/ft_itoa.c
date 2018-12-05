@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/29 19:26:20 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/04 19:39:01 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/14 17:10:09 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/11/14 18:37:10 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 11000
+#include "libft.h"
 
-# include <fcntl.h>
-
-typedef struct	s_gnl
+char	*ft_itoa(int n)
 {
-	char			*content;
-	int				fd;
-	struct s_gnl	*next;
-}				t_gnl;
+	char	*str;
+	int		a;
+	int		n2;
 
-int				get_next_line(const int fd, char **line);
-#endif
+	a = 0;
+	n2 = n;
+	if (n == 0)
+		return (ft_strdup("0"));
+	while (n2 != 0)
+	{
+		n2 = n2 / 10;
+		a++;
+	}
+	a = n < 0 ? a + 1 : a;
+	if (!(str = (char*)malloc(sizeof(char) * (a + 1))))
+		return (0);
+	str[a--] = '\0';
+	str[0] = '-';
+	while (n != 0)
+	{
+		str[a--] = n < 0 ? n % 10 * (-1) + 48 : n % 10 + 48;
+		n = n / 10;
+	}
+	return (str);
+}

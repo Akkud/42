@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/29 19:26:20 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/04 19:39:01 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/19 16:02:49 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/12/02 19:13:01 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 11000
+#include "libft.h"
 
-# include <fcntl.h>
-
-typedef struct	s_gnl
+t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	char			*content;
-	int				fd;
-	struct s_gnl	*next;
-}				t_gnl;
+	t_list	*res;
+	t_list	*alst;
 
-int				get_next_line(const int fd, char **line);
-#endif
+	if (!(lst))
+		return (0);
+	alst = f(lst);
+	if (!(alst = ft_lstnew(alst->content, alst->content_size)))
+		return (0);
+	res = alst;
+	lst = lst->next;
+	while (lst)
+	{
+		if (!ft_lstnewadd(&alst, f(lst)))
+			return (0);
+		lst = lst->next;
+	}
+	return (res);
+}

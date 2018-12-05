@@ -1,27 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/29 19:26:20 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/04 19:39:01 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/11 19:43:39 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/11/18 19:04:02 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 11000
+#include "libft.h"
 
-# include <fcntl.h>
-
-typedef struct	s_gnl
+void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	char			*content;
-	int				fd;
-	struct s_gnl	*next;
-}				t_gnl;
+	size_t			a;
+	unsigned char	*src2;
+	unsigned char	*str;
+	unsigned char	b;
 
-int				get_next_line(const int fd, char **line);
-#endif
+	a = 0;
+	src2 = (unsigned char*)src;
+	str = (unsigned char*)dst;
+	b = (unsigned char)c;
+	while (a < n)
+	{
+		str[a] = src2[a];
+		if (src2[a] == b)
+			return ((void*)str + a + 1);
+		a++;
+	}
+	return (NULL);
+}

@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/29 19:26:20 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/04 19:39:01 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/08 20:05:32 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/11/19 18:40:50 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 11000
+#include "libft.h"
 
-# include <fcntl.h>
-
-typedef struct	s_gnl
+int		ft_strncmp(const char *s1, const char *s2, size_t len)
 {
-	char			*content;
-	int				fd;
-	struct s_gnl	*next;
-}				t_gnl;
+	size_t			a;
+	unsigned char	*ss1;
+	unsigned char	*ss2;
 
-int				get_next_line(const int fd, char **line);
-#endif
+	a = 0;
+	ss1 = (unsigned char*)s1;
+	ss2 = (unsigned char*)s2;
+	if (len == 0)
+		return (0);
+	while (ss1[a] && ss2[a] && ss1[a] == ss2[a] && a < len - 1)
+		a++;
+	return (ss1[a] - ss2[a]);
+}

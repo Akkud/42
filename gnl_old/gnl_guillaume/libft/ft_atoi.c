@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/29 19:26:20 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/04 19:39:01 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/08 20:14:59 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/11/14 20:09:58 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 11000
+#include "libft.h"
 
-# include <fcntl.h>
-
-typedef struct	s_gnl
+int		ft_atoi(const char *str)
 {
-	char			*content;
-	int				fd;
-	struct s_gnl	*next;
-}				t_gnl;
+	int a;
+	int b;
+	int c;
 
-int				get_next_line(const int fd, char **line);
-#endif
+	a = 0;
+	b = 1;
+	c = 0;
+	while ((str[a] > 8 && str[a] < 14) || str[a] == 32)
+		a++;
+	if (str[a] == 43 || str[a] == 45)
+	{
+		if (str[a] == 45)
+			b = -1;
+		a++;
+	}
+	while (str[a] > 47 && str[a] < 58)
+	{
+		c = c * 10 + (str[a] - 48);
+		a++;
+	}
+	return (c * b);
+}
