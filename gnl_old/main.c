@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/04 18:47:14 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/05 19:12:31 by pacharbo         ###   ########.fr       */
+/*   Updated: 2018/12/06 14:53:37 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int				main(int ac, char **av)
 
 	(void)ac;
 	(void)fd2;
-	line = ft_strnew(99999);
 	fd = open(av[1], O_RDONLY);
 //	fd2 = open(av[2], O_RDONLY);
 	ret = 1;

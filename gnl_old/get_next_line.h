@@ -6,13 +6,13 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/29 19:26:20 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/04 17:54:26 by pacharbo         ###   ########.fr       */
+/*   Updated: 2018/12/06 14:55:43 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 9
+# define BUFF_SIZE 1000000
 
 # include <fcntl.h>
 

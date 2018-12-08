@@ -6,12 +6,17 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/27 14:38:19 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/05 19:15:16 by pacharbo         ###   ########.fr       */
+/*   Updated: 2018/12/06 16:48:40 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "libft/includes/libft.h"
+
+static int		fr(char **s1, char **s2, char **s3)
+{
+	return (ft_iferrfree((void**)s1, (void**)s2, (void**)s3, 0));
+}
 
 static int		check_list(char **str, t_gnl **lst, int fd)
 {
@@ -44,10 +49,12 @@ static int		check_list(char **str, t_gnl **lst, int fd)
 static int		readqll(char **str, int fd)
 {
 	int		lu;
-	char	tmp[BUFF_SIZE + 1];
+	char	*tmp;
 	char	*ptr;
 
 	lu = 1;
+	if (!(tmp = ft_strnew(BUFF_SIZE)))
+		return (-1);
 	if (!*str)
 		if (!(*str = ft_strnew(1)))
 			return (-1);
@@ -59,12 +66,12 @@ static int		readqll(char **str, int fd)
 		tmp[lu] = '\0';
 		ptr = *str;
 		if (!(*str = ft_strjoin((const char*)*str, tmp)))
-			return (-1);
+			return (-1 + fr(str, 0, 0));
 		free(ptr);
 	}
 	if (lu == 0)
-		return (0);
-	return (lu == -1 ? -1 : 1);
+		return (fr(&tmp, 0, 0));
+	return (lu == -1 ? -1 + fr(&tmp, 0, 0) : 1 + fr(&tmp, 0, 0));
 }
 
 static int		last_ft(char *tmp, t_gnl *lst, int fd)
@@ -90,11 +97,6 @@ static int		last_ft(char *tmp, t_gnl *lst, int fd)
 	if (!(alst->content = ft_strdup((const char*)tmp)))
 		return (-1);
 	return (1);
-}
-
-static int		fr(char **s1, char **s2, char **s3)
-{
-	return (ft_iferrfree((void**)s1, (void**)s2, (void**)s3, 0));
 }
 
 int				get_next_line(const int fd, char **line)
