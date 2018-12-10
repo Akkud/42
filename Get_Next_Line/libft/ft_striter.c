@@ -6,11 +6,11 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 18:21:31 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/11/20 16:04:50 by pacharbo         ###   ########.fr       */
+/*   Updated: 2018/12/08 16:54:56 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 void	ft_striter(char *s, void (*f)(char *))
 {

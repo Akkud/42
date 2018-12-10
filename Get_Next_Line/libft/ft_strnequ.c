@@ -6,11 +6,11 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 18:48:50 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/11/19 19:40:57 by pacharbo         ###   ########.fr       */
+/*   Updated: 2018/12/08 16:57:05 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 int		ft_strnequ(char const *s1, char const *s2, size_t n)
 {

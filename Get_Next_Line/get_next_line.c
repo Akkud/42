@@ -5,153 +5,69 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/27 14:38:19 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/06 16:48:40 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/12/08 18:42:10 by pacharbo          #+#    #+#             */
+/*   Updated: 2018/12/10 19:29:53 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "libft/includes/libft.h"
 
-static int		fr(char **s1, char **s2, char **s3)
+char	*f(char *tb, int coucou)
 {
-	return (ft_iferrfree((void**)s1, (void**)s2, (void**)s3, 0));
+	if (coucou == 1)
+		return (ft_strchr(tb, '\n'));
+	else
+		return (ft_strsub(tb, 0, (size_t)(f(tb, 1) - tb)));
 }
 
-static int		check_list(char **str, t_gnl **lst, int fd)
+int		get_next_line(int fd, char **line)
 {
-	t_gnl	*alst;
-
-	if (!*lst)
-	{
-		if (!(*lst = (t_gnl*)malloc(sizeof(t_gnl))))
-			return (-1);
-		(*lst)->next = NULL;
-		(*lst)->content = NULL;
-	}
-	alst = *lst;
-	if (fd < 0)
-		return (-1);
-	while (fd != alst->fd)
-		if (alst->next)
-			alst = alst->next;
-		else
-			return (1);
-	if (alst->content)
-	{
-		if (!(*str = ft_strdup(alst->content)))
-			return (-1);
-		ft_strdel(&(alst->content));
-	}
-	return (1);
-}
-
-static int		readqll(char **str, int fd)
-{
-	int		lu;
-	char	*tmp;
-	char	*ptr;
-
-	lu = 1;
-	if (!(tmp = ft_strnew(BUFF_SIZE)))
-		return (-1);
-	if (!*str)
-		if (!(*str = ft_strnew(1)))
-			return (-1);
-	if (ft_strchr(*str, 10))
-		return (0);
-	while (!ft_strchr(*str, 10) && lu > 0)
-	{
-		lu = read(fd, tmp, BUFF_SIZE);
-		tmp[lu] = '\0';
-		ptr = *str;
-		if (!(*str = ft_strjoin((const char*)*str, tmp)))
-			return (-1 + fr(str, 0, 0));
-		free(ptr);
-	}
-	if (lu == 0)
-		return (fr(&tmp, 0, 0));
-	return (lu == -1 ? -1 + fr(&tmp, 0, 0) : 1 + fr(&tmp, 0, 0));
-}
-
-static int		last_ft(char *tmp, t_gnl *lst, int fd)
-{
-	t_gnl	*alst;
-
-	alst = lst;
-	if (!tmp[0])
-		return (1);
-	while (fd != alst->fd)
-	{
-		if (alst->next)
-			alst = alst->next;
-		else
-		{
-			if (!(alst->next = (t_gnl*)malloc(sizeof(t_gnl))))
-				return (-1);
-			alst = alst->next;
-			alst->fd = fd;
-			alst->next = NULL;
-		}
-	}
-	if (!(alst->content = ft_strdup((const char*)tmp)))
-		return (-1);
-	return (1);
-}
-
-int				get_next_line(const int fd, char **line)
-{
-	static t_gnl	*lst;
+	static char		*tb[OPEN_MAX];
+	char			buf[BUFF_SIZE + 1];
 	char			*tmp;
-	char			*str;
+	int				lu;
 
-	str = NULL;
-	tmp = NULL;
-	if (check_list(&str, &lst, fd) < 0)
+	lu = 0;
+	if (!line || (read(fd, NULL, 0) < 0))
 		return (-1);
-	if ((readqll(&str, fd)) < 0)
-		return (-1 + fr(&str, 0, 0));
-	if (ft_strchr(str, 10))
+	while ((!tb[fd] || !f(tb[fd], 1)) && (lu = (read(fd, buf, BUFF_SIZE))) > 0)
 	{
-		if (!(*line = ft_strnew(ft_strchr(str, 10) - str)))
-			return (-1 + fr(&str, line, 0));
-		ft_strlcpy(*line, str, ft_strchr(str, 10) - str + 1);
-		tmp = ft_strdup(ft_strchr((const char*)str, 10) + 1);
-		if (last_ft(tmp, lst, fd) < 0)
-			return (-1 + fr(&str, &tmp, line));
-		return (1 + fr(&str, &tmp, 0));
+		buf[lu] = '\0';
+		tmp = tb[fd] ? tb[fd] : NULL;
+		if (!(tb[fd] = tb[fd] ? ft_strjoin(tb[fd], buf) : ft_strdup(buf)))
+			return (-1);
+		tmp ? free(tmp) : 0;
 	}
-	if (!(*line = ft_strdup(str)))
-		return (-1 + fr(&str, line, 0));
-	if (*str)
-		return (1 + fr(&str, 0, 0));
-	return (fr(&str, 0, 0));
+	if (!lu && (!tb[fd] || !tb[fd][0]))
+		return ((*line = ft_strnew(0)) ? 0 : -1);
+	if (!(*line = f(tb[fd], 1) ? f(tb[fd], 6849) : ft_strdup(tb[fd])))
+		return (-1);
+	if (!(tmp = f(tb[fd], 1) ? ft_strdup(f(tb[fd], 1) + 1) : (char*)1))
+		return (-1);
+	tmp = tmp == (char*)1 ? NULL : tmp;
+	free(tb[fd]);
+	return ((tb[fd] = tmp) ? 1 : 1);
 }
-
 /*
 **#include <stdio.h>
+**#include <fcntl.h>
 **
-**int				main(int ac, char **av)
+**int		main(int argc, char **argv)
 **{
-**	int		fd;
-**	int		fd2;
-**	int		ret;
-**	int		ret2;
 **	char	*line;
+**	int		ret;
+**	int		fd;
 **
-**	(void)ac;
-**	(void)fd2;
-**	fd = open(av[1], O_RDONLY);
-**	fd2 = open(av[2], O_RDONLY);
+**	(void)argc;
 **	ret = 1;
-**	ret2 = 1;
-**	while (ret > 0 && ret2 > 0)
+**	fd = open(argv[1], O_RDONLY);
+**	while (ret > 0)
 **	{
-**		ret = get_next_line(fd, &line);
-**		printf("%s\n", line);
-**		ret2 = get_next_line(fd2, &line);
+**		ret = get_next_line(0, &line);
 **		printf("%s\n", line);
 **	}
+**	close(fd);
 **	return (0);
 **}
 */

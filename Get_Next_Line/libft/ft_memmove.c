@@ -6,15 +6,11 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/11 21:23:52 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/11/19 19:09:22 by pacharbo         ###   ########.fr       */
+/*   Updated: 2018/12/08 16:51:35 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-/*
-**#include <stdio.h>
-*/
+#include "includes/libft.h"
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
@@ -42,6 +38,8 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	return (dst1);
 }
 /*
+**#include <stdio.h>
+**
 **int		main(int ac, char **av)
 **{
 **	char b[] = "Hello world!";
