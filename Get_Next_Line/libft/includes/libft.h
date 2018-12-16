@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 16:14:46 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/02 19:14:58 by pacharbo         ###   ########.fr       */
+/*   Updated: 2018/12/13 15:37:34 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ long			ft_iferrfree(void **pt1, void **pt2, void **pt3, void **pt4);
 void			ft_swap(int *a, int *b);
 char			*ft_itoa_base(int nbr, int base);
 size_t			ft_strlcpy(char *dest, char *src, size_t size);
+void			ft_print_words_tables(char **tab);
 
 #endif
