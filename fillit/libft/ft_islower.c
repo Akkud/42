@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_islower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guaubret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 16:38:21 by guaubret          #+#    #+#             */
-/*   Updated: 2018/11/12 15:19:32 by guaubret         ###   ########.fr       */
+/*   Created: 2018/11/18 20:46:19 by guaubret          #+#    #+#             */
+/*   Updated: 2018/11/18 20:47:33 by guaubret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_bzero(void *s, size_t n)
+int		ft_islower(int c)
 {
-	unsigned char	*str;
-
-	str = (unsigned char *)s;
-	while (n--)
-		*str++ = 0;
+	if (c >= 97 && c <= 122)
+		return (1);
+	return (0);
 }

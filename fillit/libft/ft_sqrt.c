@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_words_tables.c                            :+:      :+:    :+:   */
+/*   ft_sqrt.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: guaubret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/13 15:33:45 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/13 15:34:44 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/18 19:59:28 by guaubret          #+#    #+#             */
+/*   Updated: 2018/11/18 20:05:11 by guaubret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
-
-void	ft_print_words_tables(char **tab)
+int		ft_sqrt(int nb)
 {
-	int		a;
-	int		c;
+	int		i;
 
-	a = 0;
-	c = 0;
-	while (tab[a])
+	i = nb / 2;
+	if (!nb || nb == 1)
+		return (nb);
+	while (i > 1)
 	{
-		while (tab[a][c])
-		{
-			ft_putchar(tab[a][c]);
-			c++;
-		}
-		c = 0;
-		ft_putchar('\n');
-		a++;
+		if (i * i == nb)
+			return (i);
+		i--;
 	}
+	return (0);
 }

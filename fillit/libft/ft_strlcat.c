@@ -3,39 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: guaubret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/12 15:46:26 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/08 16:55:40 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/18 17:25:18 by guaubret          #+#    #+#             */
+/*   Updated: 2018/11/18 17:32:31 by guaubret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
-size_t	ft_strlcat(char *dest, const char *src, size_t n)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t	a;
-	size_t	b;
-	size_t	destlen;
-	size_t	srclen;
+	char		*d;
+	const char	*s;
+	size_t		n;
+	size_t		d_len;
 
-	a = 0;
-	b = 0;
-	destlen = ft_strlen(dest);
-	srclen = ft_strlen((char*)src);
-	if (n)
+	d = dst;
+	s = src;
+	n = size;
+	while (n-- && *d)
+		d++;
+	d_len = d - dst;
+	n = size - d_len;
+	if (n == 0)
+		return (d_len + ft_strlen(s));
+	while (*s)
 	{
-		while (dest[a])
-			a++;
-		while (src[b] && a < n - 1)
+		if (n != 1)
 		{
-			dest[a] = src[b];
-			a++;
-			b++;
+			*d++ = *s;
+			n--;
 		}
-		dest[a] = '\0';
+		s++;
 	}
-	if (n >= destlen)
-		return (destlen + srclen);
-	return (srclen + n);
+	*d = '\0';
+	return (d_len + (s - src));
 }

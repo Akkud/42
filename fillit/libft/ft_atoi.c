@@ -3,36 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: guaubret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 20:14:59 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/08 16:46:21 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/07 20:45:32 by guaubret          #+#    #+#             */
+/*   Updated: 2018/11/16 18:27:47 by guaubret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
-
 int		ft_atoi(const char *str)
 {
-	int a;
-	int b;
-	int c;
+	int		neg;
+	long	nbr;
 
-	a = 0;
-	b = 1;
-	c = 0;
-	while ((str[a] > 8 && str[a] < 14) || str[a] == 32)
-		a++;
-	if (str[a] == 43 || str[a] == 45)
+	nbr = 0;
+	neg = 0;
+	while ((*str <= 13 && *str >= 9) || *str == 32)
+		str++;
+	if (*str == '+' || *str == '-')
+		if (*str++ == '-')
+			neg = 1;
+	while (*str >= '0' && *str <= '9')
 	{
-		if (str[a] == 45)
-			b = -1;
-		a++;
+		nbr = 10 * nbr + (*str++ - '0');
+		if (nbr > 9223372036854775807 || nbr < -9223372036854775807)
+			return (0);
 	}
-	while (str[a] > 47 && str[a] < 58)
-	{
-		c = c * 10 + (str[a] - 48);
-		a++;
-	}
-	return (c * b);
+	(neg) ? nbr *= -1 : nbr;
+	return (nbr);
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: guaubret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/12 17:39:21 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/08 16:51:05 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/09 18:34:50 by guaubret          #+#    #+#             */
+/*   Updated: 2018/11/15 16:16:54 by guaubret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
 void	ft_memdel(void **ap)
 {

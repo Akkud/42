@@ -1,22 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_strcapitalize.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guaubret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 16:38:21 by guaubret          #+#    #+#             */
-/*   Updated: 2018/11/12 15:19:32 by guaubret         ###   ########.fr       */
+/*   Created: 2018/11/18 20:52:14 by guaubret          #+#    #+#             */
+/*   Updated: 2018/11/18 21:59:24 by guaubret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+char	*ft_strcapitalize(char *str)
 {
-	unsigned char	*str;
+	int		i;
 
-	str = (unsigned char *)s;
-	while (n--)
-		*str++ = 0;
+	i = -1;
+	while (str[++i])
+		if ((!i || !ft_isalnum(str[i - 1])) && ft_islower(str[i]))
+			str[i] = ft_toupper(str[i]);
+		else if ((i > 0 && ft_isalnum(str[i - 1])) && ft_isupper(str[i]))
+			str[i] = ft_tolower(str[i]);
+	return (str);
 }

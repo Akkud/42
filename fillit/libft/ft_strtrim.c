@@ -3,34 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: guaubret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/14 13:27:21 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/08 16:58:09 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/09 19:44:57 by guaubret          #+#    #+#             */
+/*   Updated: 2018/11/15 20:42:18 by guaubret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
 char	*ft_strtrim(char const *s)
 {
-	unsigned int	a;
-	unsigned int	start;
-	unsigned int	len;
+	size_t		size;
+	char		*str;
+	char const	*ptr;
 
-	a = 0;
-	if (!s)
-		return (0);
-	if (!s[0])
-		return (ft_strnew(0));
-	while (s[a] && (s[a] == 32 || s[a] == '\n' || s[a] == '\t'))
-		a++;
-	if (!s[a])
+	size = 0;
+	if (s == NULL)
+		return (NULL);
+	while ((*s == ' ' || *s == '\n' || *s == '\t') && *s)
+		s++;
+	if (!*s)
 		return (ft_strnew(1));
-	start = a;
-	a = ft_strlen((char*)s) - 1;
-	while (s[a] == 32 || s[a] == '\n' || s[a] == '\t')
-		a--;
-	len = a - start + 1;
-	return (ft_strsub(s, start, len));
+	ptr = s;
+	while (*s++)
+		size++;
+	s -= 2;
+	while ((*s == ' ' || *s == '\n' || *s == '\t') && *s--)
+		size--;
+	if (!(str = ft_strsub(ptr, 0, size)))
+		return (NULL);
+	return (str);
 }

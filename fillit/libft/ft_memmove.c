@@ -3,53 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: guaubret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/11 21:23:52 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/08 16:51:35 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/09 17:09:02 by guaubret          #+#    #+#             */
+/*   Updated: 2018/11/11 22:25:05 by guaubret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned char		*dst1;
-	unsigned char		*src1;
-	size_t				a;
+	unsigned char		*str1;
+	const unsigned char	*str2;
 
-	dst1 = (unsigned char*)dst;
-	src1 = (unsigned char*)src;
-	if (src1 < dst1)
-	{
-		a = len;
-		while (a-- > 0)
-			dst1[a] = src1[a];
-	}
+	str1 = (unsigned char *)dst;
+	str2 = (const unsigned char *)src;
+	if (str1 < str2)
+		while (len--)
+			*str1++ = *str2++;
 	else
 	{
-		a = 0;
-		while (a < len)
-		{
-			dst1[a] = src1[a];
-			a++;
-		}
+		str1 += len;
+		str2 += len;
+		while (len--)
+			*--str1 = *--str2;
 	}
-	return (dst1);
+	return (dst);
 }
-/*
-**#include <stdio.h>
-**
-**int		main(int ac, char **av)
-**{
-**	char b[] = "Hello world!";
-**	char b2[] = "Hello world!";
-**
-**	(void)ac;
-**	memmove(b, av[1], atoi(av[2]));
-**	printf("Resultat 1 : %s\n", b);
-**	ft_memmove(b2, av[1], atoi(av[2]));
-**	printf("Resultat 2 : %s\n", b2);
-**	return (0);
-**}
-*/

@@ -3,32 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: guaubret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 16:02:49 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/08 16:49:54 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/14 16:06:27 by guaubret          #+#    #+#             */
+/*   Updated: 2018/11/15 16:40:41 by guaubret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list	*res;
-	t_list	*alst;
+	t_list	*n_lst;
+	t_list	*h_lst;
+	t_list	*ret;
 
-	if (!(lst))
-		return (0);
-	alst = f(lst);
-	if (!(alst = ft_lstnew(alst->content, alst->content_size)))
-		return (0);
-	res = alst;
+	if (!lst || !(h_lst = ft_lstnew(lst->content, lst->content_size)))
+		return (NULL);
+	h_lst = f(lst);
+	ret = h_lst;
+	if (!ret)
+		return (NULL);
 	lst = lst->next;
 	while (lst)
 	{
-		if (!ft_lstnewadd(&alst, f(lst)))
-			return (0);
+		if (!(n_lst = ft_lstnew(lst->content, lst->content_size)))
+			return (NULL);
+		n_lst = f(lst);
+		h_lst->next = n_lst;
+		h_lst = h_lst->next;
 		lst = lst->next;
 	}
-	return (res);
+	return (ret);
 }

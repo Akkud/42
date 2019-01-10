@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_sort_integer_table.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: guaubret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/29 19:26:20 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/10 19:41:08 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/18 20:06:56 by guaubret          #+#    #+#             */
+/*   Updated: 2018/11/18 20:18:52 by guaubret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 17
-# include <unistd.h>
-# include <stdlib.h>
-# include <limits.h>
+#include "libft.h"
 
-int				get_next_line(const int fd, char **line);
-#endif
+void	ft_sort_integer_table(int *tab, int size)
+{
+	int		i;
+
+	i = 1;
+	while (i <= (size - 1))
+		if (tab[i] < tab[i - 1])
+		{
+			ft_swap(&tab[i], &tab[i - 1]);
+			i = 1;
+		}
+		else
+			i++;
+}

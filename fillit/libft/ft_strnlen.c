@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_strnlen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guaubret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/09 16:38:21 by guaubret          #+#    #+#             */
-/*   Updated: 2018/11/12 15:19:32 by guaubret         ###   ########.fr       */
+/*   Created: 2018/11/18 19:31:00 by guaubret          #+#    #+#             */
+/*   Updated: 2018/11/18 19:32:16 by guaubret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+size_t	ft_strnlen(const char *s, size_t maxlen)
 {
-	unsigned char	*str;
+	size_t	len;
 
-	str = (unsigned char *)s;
-	while (n--)
-		*str++ = 0;
+	len = 0;
+	while (len < maxlen && *s++)
+		len++;
+	return (len);
 }

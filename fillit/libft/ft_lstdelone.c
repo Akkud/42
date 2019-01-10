@@ -3,20 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: guaubret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/16 17:35:54 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/08 16:49:35 by pacharbo         ###   ########.fr       */
+/*   Created: 2018/11/14 15:21:43 by guaubret          #+#    #+#             */
+/*   Updated: 2018/11/14 16:29:14 by guaubret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "libft.h"
 
-void	ft_lstdelone(t_list **alst, void (*del)(void*, size_t))
+void	ft_lstdelone(t_list **alst, void (*del)(void *, size_t))
 {
-	if (!alst || !*alst)
-		return ;
-	del(((*alst)->content), (*alst)->content_size);
-	ft_iferrfree((void**)alst, 0, 0, 0);
+	del((*alst)->content, (*alst)->content_size);
+	free(*alst);
 	*alst = NULL;
 }
