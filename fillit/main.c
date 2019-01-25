@@ -6,21 +6,11 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/12 18:55:47 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/01/10 19:43:45 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/01/25 20:12:17 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-void			ft_free_square(char ***square, int dim)
-{
-	int	i;
-
-	i = -1;
-	while (++i < dim)
-		free(square[0][i]);
-	free(square[0]);
-}
 
 void			ft_print_words_tables(char **tab)
 {
@@ -52,7 +42,7 @@ int				main(int ac, char **av)
 		return (ft_error(2, NULL, NULL));
 	if (!(read_main(av[1], &tab, &dim)))
 		return (ft_error(1, NULL, &tab));
-	if (!(list = ft_store_piece(tab, 0, 0, 0)))
+	if (!(list = ft_store_piece(tab, 0)))
 		return (ft_error(1, &list, &tab));
 	if (!ft_init_square(&square, dim))
 	{

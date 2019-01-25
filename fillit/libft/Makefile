@@ -6,7 +6,7 @@
 #    By: guaubret <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/16 17:02:43 by guaubret          #+#    #+#              #
-#    Updated: 2018/12/13 15:17:33 by guaubret         ###   ########.fr        #
+#    Updated: 2019/01/14 17:27:34 by guaubret         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,6 +79,7 @@ SRCS =	./ft_atoi.c \
 		./ft_isupper.c \
 		./ft_strcapitalize.c \
 		./ft_isspace.c \
+		./ft_fddel.c \
 		./get_next_line.c \
 
 OBJS = $(SRCS:.c=.o)

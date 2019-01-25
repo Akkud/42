@@ -6,7 +6,7 @@
 /*   By: guaubret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/13 15:23:16 by guaubret          #+#    #+#             */
-/*   Updated: 2019/01/10 20:06:39 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/01/25 20:11:13 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,6 @@ static void		ft_find_duplicate(t_tetris *list, t_tetris *piece)
 		}
 		list = list->next;
 	}
-}
-
-static int		ft_sqrt_up(int x)
-{
-	int	i;
-
-	i = 0;
-	while (i * i < x)
-		i++;
-	return (i);
-}
-
-void			ft_free_tab(char ***tab)
-{
-	char	**ptr;
-
-	ptr = *tab;
-	while (*ptr)
-		ft_strdel(&(*ptr++));
-	if (*tab)
-		free(*tab);
 }
 
 static char		**ft_tabdup_free(char ***tab, char *line)
@@ -81,15 +60,6 @@ static char		**ft_tabdup_free(char ***tab, char *line)
 	return (ret);
 }
 
-static void		bloc_assign(int *i, int pos[3][2], t_tetris *new)
-{
-	if (pos[*i][1] > new->xmax)
-		new->xmax = pos[*i][1];
-	new->bloc[*i][0] = pos[*i][0];
-	new->bloc[*i][1] = pos[*i][1];
-	(*i)++;
-}
-
 static int		ft_tetrisadd(t_tetris **list, int pos[3][2], char letter)
 {
 	t_tetris	*piece;
@@ -118,42 +88,21 @@ static int		ft_tetrisadd(t_tetris **list, int pos[3][2], char letter)
 	return (1);
 }
 
-t_tetris		*ft_store_piece(char **tab, int x, int y, int i)
+t_tetris		*ft_store_piece(char **tab, int y)
 {
 	t_tetris	*list;
-	int			pos_ref[2];
 	int			pos[3][2];
-	int			flag;
 	char		letter;
 
-	flag = 0;
 	list = NULL;
 	letter = 'A';
 	while (tab[y])
 	{
-		x = 0;
-		while (tab[y][x])
+		if (y % 5 == 0)
 		{
-			if (flag && tab[y][x] == '#')
-			{
-				pos[i][0] = y - pos_ref[0];
-				pos[i][1] = x - pos_ref[1];
-				i++;
-			}
-			else if (tab[y][x] == '#')
-			{
-				pos_ref[0] = y;
-				pos_ref[1] = x;
-				flag = 1;
-			}
-			x++;
-		}
-		if ((y + 2) % 5 == 0)
-		{
+			ft_find_blocs(tab + y, pos);
 			if (!(ft_tetrisadd(&list, pos, letter++)))
 				return (NULL);
-			flag = 0;
-			i = 0;
 		}
 		y++;
 	}
@@ -168,9 +117,10 @@ int				read_main(char *file, char ***tab, int *dim)
 	char	*line;
 
 	i = 1;
+	if ((fd = check_fd(file)) < 0)
+		return (0);
 	if (!(*tab = (char**)malloc(sizeof(char*))))
 		return (0);
-	fd = open(file, O_RDONLY);
 	**tab = NULL;
 	while ((ret = get_next_line(fd, &line)) > 0)
 		if ((!ft_check_line(line, i++))
@@ -180,8 +130,9 @@ int				read_main(char *file, char ***tab, int *dim)
 			return (0);
 		}
 	free(line);
-	close(fd);
-	if ((!ret && (i % 5) != 0) || ret || !ft_check_pieces(*tab))
+	if (close(fd) || i > 130)
+		return (0);
+	if ((!ret && (i % 5) != 0) || ret || !ft_check_pieces(*tab, -1))
 		return (0);
 	*dim = ft_sqrt_up(i / 5 * 4);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: guaubret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/19 16:51:27 by guaubret          #+#    #+#             */
-/*   Updated: 2018/12/08 19:52:36 by guaubret         ###   ########.fr       */
+/*   Updated: 2019/01/14 17:00:21 by guaubret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,34 +71,6 @@ static size_t	ft_strchrcpy(char **dst, char *src, char c)
 		return (0);
 	*dst = ft_strncpy(*dst, ptr, (size_t)(src - ptr));
 	return (src - ptr);
-}
-
-void			ft_fddel(t_file **f_list, int fd)
-{
-	t_file	*tmp;
-	t_file	*curr;
-
-	curr = *f_list;
-	if ((*f_list)->fd == fd)
-	{
-		ft_strdel(&((*f_list)->content));
-		tmp = (*f_list)->next;
-		free(*f_list);
-		*f_list = tmp;
-	}
-	else
-		while (curr->next)
-		{
-			tmp = curr->next;
-			if (tmp->fd == fd)
-			{
-				ft_strdel(&(tmp->content));
-				curr->next = tmp->next;
-				free(tmp);
-				break ;
-			}
-			curr = tmp;
-		}
 }
 
 int				get_next_line(const int fd, char **line)

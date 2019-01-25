@@ -1,27 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: guaubret <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/19 16:50:46 by guaubret          #+#    #+#             */
-/*   Updated: 2019/01/14 17:25:41 by guaubret         ###   ########.fr       */
+/*   Created: 2019/01/14 16:39:43 by guaubret          #+#    #+#             */
+/*   Updated: 2019/01/14 16:43:20 by guaubret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
-# define BUFF_SIZE 1000
-# include "libft.h"
+#include "fillit.h"
 
-typedef struct	s_file
+void	ft_free_list(t_tetris **list)
 {
-	char			*content;
-	char			*beg;
-	int				fd;
-	struct s_file	*next;
-}				t_file;
-int				get_next_line(const int fd, char **line);
-void			ft_fddel(t_file **f_list, int fd);
-#endif
+	t_tetris	*tmp;
+
+	while (*list)
+	{
+		tmp = (*list)->next;
+		free(*list);
+		*list = tmp;
+	}
+}
+
+void	ft_free_square(char ***square, int dim)
+{
+	int		i;
+
+	i = -1;
+	while (++i < dim)
+		free(square[0][i]);
+	free(square[0]);
+}
+
+void	ft_free_tab(char ***tab)
+{
+	char	**ptr;
+
+	ptr = *tab;
+	while (*ptr)
+		ft_strdel(&(*ptr++));
+	if (*tab)
+		free(*tab);
+}

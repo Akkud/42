@@ -11,7 +11,10 @@ CFLAGS = -Wall -Werror -Wextra
 SRC = ./main.c \
 	./check.c \
 	./read.c \
-	./solve.c
+	./solve.c \
+	./square.c \
+	./free.c \
+	./utils.c
 
 OBJ = $(SRC:.c=.o) 
 
