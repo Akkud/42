@@ -1,0 +1,1 @@
+ipconfig getpacket en0 | grep router | cut -d'{' -f2 | cut -d'}' -f1
