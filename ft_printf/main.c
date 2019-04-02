@@ -11,7 +11,7 @@ static int	datalloc(t_printf **data)
 	else
 		if (!(*data = (t_printf*)malloc(sizeof(t_printf))))
 			return (0);
-	data->flag = 0;
+	data->flag = "00000";
 	data->fw = NULL;
 	data->pres = NULL;
 	data->lmod = 0;
