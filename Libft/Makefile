@@ -6,7 +6,7 @@
 #    By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/14 19:58:48 by pacharbo          #+#    #+#              #
-#    Updated: 2018/12/13 15:36:22 by pacharbo         ###   ########.fr        #
+#    Updated: 2019/04/09 19:19:08 by pacharbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,10 @@ SRCS = ft_atoi.c \
 	   ft_swap.c \
 	   ft_itoa_base.c \
 	   ft_strlcpy.c \
-	   ft_print_words_tables.c
+	   ft_print_words_tables.c \
+	   ft_lltoa_base.c \
+	   ft_ulltoa_base.c \
+	   ft_lltoa.c \
 
 OBJS = $(SRCS:.c=.o)
 
