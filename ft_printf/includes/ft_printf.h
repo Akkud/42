@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 18:34:26 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/04/10 18:29:49 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/04/18 17:34:36 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # define BUFF_SIZE 50
 # include <unistd.h>
 # include <stdarg.h>
+# include <stdlib.h>
+# include "../Libft/includes/libft.h"
 # include <stdio.h>
 
 typedef	struct		s_printf
@@ -30,7 +32,6 @@ typedef	struct		s_printf
 **		void			*p;
 	};
 */
-	void			*arg;	// NULL puis l'argument
 	int				conv;	// 0 puis l'ID de la conversion : diouxXcspfegb (1 - 13)
 	char			*flag;	// NULL puis strnew[5] si flag present
 	int				fw;		// 0 puis la valeur du field width
@@ -45,5 +46,13 @@ typedef	struct		s_printf
 **	
 **	
 */
+
+int				getflag(char **fmt, t_printf *data);
+void			getfw(char **fmt, t_printf *data);
+void			getprec(char **fmt, t_printf *data);
+void			getlmod(char **fmt, t_printf *data);
+int				getconv(char **fmt, t_printf *data);
+int				conv_main(va_list ap, t_printf *data);
+
 
 #endif

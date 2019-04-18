@@ -1,12 +1,12 @@
-#include <unistd.h>
+#include "includes/ft_printf.h"
 
 int		main(void)
 {
-	char	fmt[50] = 
+	char	c; 
 	
+	c = 'r';
 	
-	
-	
+	printf("%s\n", ft_strdup(&c));
 	
 	
 	
