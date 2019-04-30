@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 18:34:26 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/04/18 17:34:36 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/04/24 16:32:30 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,7 @@
 
 typedef	struct		s_printf
 {
-/*	union				arg
-**	{
-**		int				dic;
-**		unsigned int	ouxx;
-//		double			eg;
-**		wint_t			lc;
-**		const char		*s;
-**		const wchar_t	*ls;
-**		void			*p;
-	};
-*/
-	int				conv;	// 0 puis l'ID de la conversion : diouxXcspfegb (1 - 13)
+	int				conv;	// 0 puis l'ID de la conversion : diouxXcspfegb (0 - 12)
 	char			*flag;	// NULL puis strnew[5] si flag present
 	int				fw;		// 0 puis la valeur du field width
 	int				pr;		// -1 puis la valeur de la precision
@@ -42,9 +31,9 @@ typedef	struct		s_printf
 
 /*	Si # et conv == o -> fw = -1
 **			conv == x -> fw = -2
-**	
-**	
-**	
+**
+**
+**
 */
 
 int				getflag(char **fmt, t_printf *data);
@@ -53,6 +42,5 @@ void			getprec(char **fmt, t_printf *data);
 void			getlmod(char **fmt, t_printf *data);
 int				getconv(char **fmt, t_printf *data);
 int				conv_main(va_list ap, t_printf *data);
-
 
 #endif
