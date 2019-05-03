@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 18:34:46 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/04/30 20:02:29 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:17:22 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,15 +227,17 @@ static int	ft_overfloat(t_printf *data, char **ent, char **dec, int a)
 	if (!zeros)
 		return (-1);
 	ft_memdel((void**)&zeros);
-	return (-1);
+	return (1);
 }
 
-static int	conv_fltpr(long double arg, t_printf *data, char *dec, char *tmp)
+static int	conv_float(long double arg, t_printf *data, char *dec, char *tmp)
 {
 	char			*ent;
 	int				a;
 
 	a = -1;
+	if (!data->pr)
+	   return ((data->res = ft_lltoa(arg + 0.5)) ? 1 : -1);
 	while (++a < data->pr)
 		if (((arg - (long long)arg) * ft_power(10, a + 1) + 0.5) <
 			((arg - (long long)arg) * ft_power(10, a) + 0.5))
@@ -243,17 +245,17 @@ static int	conv_fltpr(long double arg, t_printf *data, char *dec, char *tmp)
 	if (!(ent = ft_lltoa(arg)) ||
 		!(dec = ft_lltoa((arg - (long long int)arg) * ft_power(10, a) + 0.5)))
 		ft_memdel((void*)ent);
-//	if (ft_strlen(*dec) < (size_t)data->pr)
-//		if (!(dec = ft_zeroadd()))
-	printf("a = %d\n", a);
 	if (a < data->pr)
 		return (ft_overfloat(data, &ent, &dec, a));
-	else if (!(tmp = ft_strjoin(ent, ".")) || !(data->res = ft_strjoin(tmp, dec)))
+	else if (ft_strlen(dec) < (size_t)a)
+		if (!ft_zeroadd(data, &dec, &tmp))
+			return (-1);
+	if (!(tmp = ft_strjoin(ent, ".")) || !(data->res = ft_strjoin(tmp, dec)))
 		return (-1);
 	ft_memdel((void**)&ent);
 	ft_memdel((void**)&dec);
 	ft_memdel((void**)&tmp);
-	return (-1);
+	return (1);
 }
 
 static int	conv_fdouble(va_list ap, t_printf *data)
@@ -265,16 +267,29 @@ static int	conv_fdouble(va_list ap, t_printf *data)
 	arg = va_arg(ap, long double);
 	dec = NULL;
 	tmp = NULL;
-	printf("arg = [%Lf]\n", arg);
 	if (data->pr == -1)
 		data->pr = 6;
-	if (data->pr)
-		return (conv_fltpr(arg, data, dec, tmp));
-	else if (!(data->res = ft_lltoa(arg + 0.5)))
+	return (conv_float(arg, data, dec, tmp));
+}
+
+static int	conv_edouble(va_list ap, t_printf *data)
+{
+	long double		arg;
+	long double		a;
+	long long int	exp;
+	char			*tmp;
+	
+	exp = 0;
+	arg = va_arg(ap, long double);
+	data->pr = data->pr == -1 ? 6 : data->pr;
+	a = arg >= 10 ? 0.1 : 0;
+	a = arg < 1 ? 10 : a;
+	while ((arg >= 10 || arg < 1) && ++exp)
+		arg *= a;
+	if (!conv_float(arg, data, NULL, NULL))
 		return (-1);
-	printf("realdec = %lld\n", (long long int)((arg - (int)arg) * ft_power(10, data->pr) + 0.5));
-	printf("res = %s\n", data->res);
-	return (-1);
+	if (a <
+	if (!(tmp = ft_strjoin(data->res, "e")
 }
 
 int		conv_main(va_list ap, t_printf *data)
@@ -295,6 +310,6 @@ int		conv_main(va_list ap, t_printf *data)
 	if (((conv[data->conv]) (ap, data)) < 0)
 		return (-1);
 //	flag_main(data);
-	printf("res = [%s]\n", data->res);
+//	printf("res = [%s]\n", data->res);
 	return (0);
 }

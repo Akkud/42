@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 18:34:15 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/04/30 19:59:10 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/05/03 17:17:24 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ static int		ft_getdata(char **fmt, t_printf **data)
 	getlmod(fmt, *data);
 	if (getconv(fmt, *data) < 0)
 		return (-1);
-	write(1, "flags = [", 9);
+/*	write(1, "flags = [", 9);
 	write(1, &((*data)->flag[0]), 1);
 	write(1, &((*data)->flag[1]), 1);
 	write(1, &((*data)->flag[2]), 1);
 	write(1, &((*data)->flag[3]), 1);
 	write(1, &((*data)->flag[4]), 1);
 	printf("]\nfw = %i\nprec = %i\nlmod = %i\nconv = %i\n", (*data)->fw, (*data)->pr, (*data)->lmod, (*data)->conv);
-	return (0);
+*/	return (0);
 }
 
 static int		ft_percentcheck(char **fmt, va_list ap, t_printf **data)
@@ -132,14 +132,14 @@ int				ft_printf(const char *format, ...)
 
 int				main(void)
 {
-//	char	*str = "test";
+	char	*str = "test";
 	long double		flotte = 3.006568435343543545454646545642;
 
 //	ft_printf("coucou");
 //	ft_printf("%s", str);
 //	printf("printf : [%s]", str);
 //	ft_printf("% 0+-#10.5hhs", str);
-	ft_printf("cce = %.19Lf\n", flotte);
-	printf("vre = %.19Lf\n", flotte);
+	ft_printf("flt = %Lf\nstr = %s\n", flotte, str);
+	printf("vre = %Lf\nvre = %s\n", flotte, str);
 	return (0);
 }
