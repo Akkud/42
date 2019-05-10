@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 18:34:26 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/04/24 16:32:30 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/05/10 16:27:26 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,10 @@ void			getprec(char **fmt, t_printf *data);
 void			getlmod(char **fmt, t_printf *data);
 int				getconv(char **fmt, t_printf *data);
 int				conv_main(va_list ap, t_printf *data);
+int				flag_sharp(t_printf *data);
+int				flag_space(t_printf *data);
+int				flag_plus(t_printf *data);
+int				field_width(t_printf *data);
+int				precision(t_printf *data);
 
 #endif

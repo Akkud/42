@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 18:34:15 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/05/03 17:17:24 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/05/10 16:25:06 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ static int		ft_init_data(t_printf **data)
 	return (1);
 }
 
-static void		ft_free_data(t_printf **data)
+static void		ft_free_data(t_printf *data)
 {
-	free((*data)->flag);
-	free((*data)->res);
+	ft_memdel((void**)&data->flag);
+	ft_memdel((void**)&data->res);
 }
 
 static int		ft_getdata(char **fmt, t_printf **data)
@@ -47,7 +47,7 @@ static int		ft_getdata(char **fmt, t_printf **data)
 	write(1, &((*data)->flag[3]), 1);
 	write(1, &((*data)->flag[4]), 1);
 	printf("]\nfw = %i\nprec = %i\nlmod = %i\nconv = %i\n", (*data)->fw, (*data)->pr, (*data)->lmod, (*data)->conv);
-*/	return (0);
+	*/return (0);
 }
 
 static int		ft_percentcheck(char **fmt, va_list ap, t_printf **data)
@@ -103,7 +103,7 @@ static int		parser_n_co(char *fmt, va_list ap, t_printf **data)
 				if (ft_percentcheck(&fmt, ap, data) < 0)
 					return (-1);
 				a = ft_fill_buff(buf, a, (*data)->res, &ret);
-				ft_free_data(data);
+				ft_free_data(*data);
 			}
 		if (a > BUFF_SIZE - 2)
 			ret += ft_display(buf, &a);
@@ -132,14 +132,16 @@ int				ft_printf(const char *format, ...)
 
 int				main(void)
 {
-	char	*str = "test";
-	long double		flotte = 3.006568435343543545454646545642;
+//	char			*str = "test";
+//	long double		eflot = 54645.003;
+//	char			c = 'e';
+	int				nb = 6548321;
 
 //	ft_printf("coucou");
 //	ft_printf("%s", str);
 //	printf("printf : [%s]", str);
 //	ft_printf("% 0+-#10.5hhs", str);
-	ft_printf("flt = %Lf\nstr = %s\n", flotte, str);
-	printf("vre = %Lf\nvre = %s\n", flotte, str);
+	ft_printf("efl = %#+-35.15d\n", nb);
+	printf("vre = %+-35.15d\n", nb);
 	return (0);
 }

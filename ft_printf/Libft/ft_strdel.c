@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 18:13:34 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/08 16:54:31 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:08:41 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 void	ft_strdel(char **as)
 {
-	ft_memdel((void*)as);
+	ft_memdel((void**)as);
 }

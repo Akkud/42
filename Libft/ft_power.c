@@ -6,15 +6,15 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/24 16:27:45 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/04/24 16:28:39 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/04/25 17:15:48 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-int		ft_power(int nb, int power)
+long long int	ft_power(long long int nb, int power)
 {
-	int a;
+	long long int a;
 
 	a = nb;
 	if (power < 0)

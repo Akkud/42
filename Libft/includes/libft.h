@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 16:14:46 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/04/24 16:29:12 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/05/06 14:47:50 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,9 @@ void			ft_print_words_tables(char **tab);
 char			*ft_lltoa_base(long long nb, char *base);
 char			*ft_ulltoa_base(unsigned long long nb, char *base);
 char			*ft_lltoa(long long nb);
-int				ft_power(int nb, int power);
+long long int	ft_power(long long int nb, int power);
+char			*ft_sjoin1(char **s1, char const *s2);
+char			*ft_sjoin2(char const *s1, char **s2);
+char			*ft_sjoin3(char **s1, char **s2);
 
 #endif

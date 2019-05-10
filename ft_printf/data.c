@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 18:34:02 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/04/24 15:15:43 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/05/08 19:18:09 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	getflag(char **fmt, t_printf *data)
 	char	flag[6];
 	
 	a = -1;
-	ft_strcpy(flag, "#0-+ ");
+	ft_strcpy(flag, "#0- +");
 	while (flag[++a])
 		if (**fmt == flag[a])
 		{
@@ -44,11 +44,13 @@ void	getprec(char **fmt, t_printf *data)
 {
 	if (**fmt != '.')
 		return ;
-	printf("precision presente\n");
 	fmt[0]++;
 	data->pr = ft_atoi(*fmt);
 	if (data->pr < 0)
+	{
 		data->pr = 0;
+		fmt[0]++;
+	}
 	while (**fmt >= '0' && **fmt <= '9')
 		fmt[0]++;
 }
@@ -88,7 +90,7 @@ int		getconv(char **fmt, t_printf *data)
 	char	conv[15];
 
 	ft_strcpy(conv, "diouxXcspfegb");
-	a = 0;
+	a = -1;
 	while (conv[++a])
 		if (**fmt == conv[a])
 		{

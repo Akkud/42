@@ -6,7 +6,7 @@
 #    By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/14 19:58:48 by pacharbo          #+#    #+#              #
-#    Updated: 2019/04/24 16:29:29 by pacharbo         ###   ########.fr        #
+#    Updated: 2019/05/06 14:47:30 by pacharbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,6 +81,9 @@ SRCS = ft_atoi.c \
 	   ft_ulltoa_base.c \
 	   ft_lltoa.c \
 	   ft_power.c \
+	   ft_sjoin1.c \
+	   ft_sjoin2.c \
+	   ft_sjoin3.c \
 
 OBJS = $(SRCS:.c=.o)
 

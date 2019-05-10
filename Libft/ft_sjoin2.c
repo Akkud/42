@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_sjoin2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/12 21:02:45 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/05/06 14:31:05 by pacharbo         ###   ########.fr       */
+/*   Created: 2019/05/06 14:49:26 by pacharbo          #+#    #+#             */
+/*   Updated: 2019/05/09 17:39:30 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_sjoin2(char const *s1, char **s2)
 {
 	char	*str;
 
-	if (!s1 || !s2)
+	if (!s1 || !s2 || !*s2)
+	{
+		if (s2)
+			ft_strdel(s2);
 		return (0);
-	if (!(str = ft_strnew(ft_strlen(s1) + ft_strlen(s2) + 1)))
+	}
+	if (!(str = ft_strnew(ft_strlen(s1) + ft_strlen(*s2) + 1)))
 		return (0);
 	ft_strcpy(str, s1);
-	ft_strcat(str, s2);
+	ft_strcat(str, *s2);
+	ft_strdel(s2);
 	return (str);
 }
