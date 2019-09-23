@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 18:34:26 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/05/10 16:27:26 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/05/20 18:18:31 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,33 +19,52 @@
 # include "../Libft/includes/libft.h"
 # include <stdio.h>
 
-typedef	struct		s_printf
+typedef	struct	s_printf
 {
-	int				conv;	// 0 puis l'ID de la conversion : diouxXcspfegb (0 - 12)
-	char			*flag;	// NULL puis strnew[5] si flag present
-	int				fw;		// 0 puis la valeur du field width
-	int				pr;		// -1 puis la valeur de la precision
-	int				lmod;	// 0 puis l'ID du length modifier : hh/h/l/ll/L (1 - 5)
-	char			*res;	// NULL puis le resultat
-}					t_printf;
+	int			conv;
+	char		*flag;
+	int			fw;
+	int			pr;
+	int			lmod;
+	char		*res;
+}				t_printf;
 
-/*	Si # et conv == o -> fw = -1
-**			conv == x -> fw = -2
-**
-**
-**
-*/
-
+int				ft_getdata(char **fmt, t_printf **data);
 int				getflag(char **fmt, t_printf *data);
 void			getfw(char **fmt, t_printf *data);
 void			getprec(char **fmt, t_printf *data);
 void			getlmod(char **fmt, t_printf *data);
 int				getconv(char **fmt, t_printf *data);
-int				conv_main(va_list ap, t_printf *data);
 int				flag_sharp(t_printf *data);
 int				flag_space(t_printf *data);
 int				flag_plus(t_printf *data);
 int				field_width(t_printf *data);
 int				precision(t_printf *data);
+void			ft_free_data(t_printf *data);
+int				ft_printf(const char *format, ...);
+int				ft_fill_buff(char buf[BUFF_SIZE], int a, t_printf *data,
+				int *ret);
+int				ft_display(char buf[BUFF_SIZE], int *a);
+int				ft_percentcheck(char **fmt, va_list ap, t_printf **data);
+int				conv_int(va_list ap, t_printf *data);
+int				conv_int2(va_list ap, t_printf *data);
+int				conv_octal(va_list ap, t_printf *data);
+int				conv_octal2(va_list ap, t_printf *data);
+int				conv_uint(va_list ap, t_printf *data);
+int				conv_uint2(va_list ap, t_printf *data);
+int				conv_hexalow(va_list ap, t_printf *data);
+int				conv_hexalow2(va_list ap, t_printf *data);
+int				conv_hexaup(va_list ap, t_printf *data);
+int				conv_hexaup2(va_list ap, t_printf *data);
+int				conv_uchar(va_list ap, t_printf *data);
+int				conv_char_array(va_list ap, t_printf *data);
+int				conv_pointer(va_list ap, t_printf *data);
+int				conv_binary(va_list ap, t_printf *data);
+int				conv_percent(va_list ap, t_printf *data);
+int				conv_fdouble(va_list ap, t_printf *data);
+int				conv_float(long double arg, t_printf *data, char *dec,
+				char *tmp);
+int				conv_edouble(va_list ap, t_printf *data);
+int				conv_gdouble(va_list ap, t_printf *data);
 
 #endif

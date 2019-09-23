@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 18:47:30 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/04/09 19:14:30 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/05/15 17:04:29 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char		*ft_ulltoa_base(unsigned long long nb, char *base)
 {
-	int			a;
-	int			b;
-	int			i;
+	int					a;
+	int					b;
+	int					i;
 	unsigned long long	tmp;
-	char		*res;
+	char				*res;
 
 	a = 1;
 	if (nb < ft_strlen(base))

@@ -6,7 +6,7 @@
 #    By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/14 19:58:48 by pacharbo          #+#    #+#              #
-#    Updated: 2019/05/06 14:47:30 by pacharbo         ###   ########.fr        #
+#    Updated: 2019/05/13 17:14:46 by pacharbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,15 +94,15 @@ CFLAGS = -Wextra -Wall -Werror
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+	@ar rcs $(NAME) $(OBJS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $?
+	@$(CC) $(CFLAGS) -c $?
 
 clean:
-	rm -f $(OBJS)
+	@rm -f $(OBJS)
 
 fclean : clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re : fclean all

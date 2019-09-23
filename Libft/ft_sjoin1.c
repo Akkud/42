@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 14:49:09 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/05/09 17:37:49 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/05/14 16:51:46 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ char	*ft_sjoin1(char **s1, char const *s2)
 		return (0);
 	}
 	if (!(str = ft_strnew(ft_strlen(*s1) + ft_strlen(s2) + 1)))
+	{
+		ft_strdel(s1);
 		return (0);
+	}
 	ft_strcpy(str, *s1);
 	ft_strcat(str, s2);
 	ft_strdel(s1);

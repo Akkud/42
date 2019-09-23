@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/08 18:47:30 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/04/09 19:39:19 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/05/20 15:19:32 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*neg(long long nb, char *base)
 	long long	tmp;
 	char		*res;
 
-	a = nb > (int)ft_strlen(base) ?  0 : 1;
+	a = nb > (int)ft_strlen(base) * -1 ? 0 : 1;
 	i = 0;
 	tmp = nb;
 	while ((tmp /= (int)ft_strlen(base)) <= ((long long)ft_strlen(base) * -1))
@@ -34,7 +34,7 @@ static char	*neg(long long nb, char *base)
 		tmp = nb;
 		while (b++ <= a)
 			tmp /= (int)ft_strlen(base);
-		res[i++] = base[-tmp % (int)ft_strlen(base)];
+		res[i++] = base[-(tmp % (int)ft_strlen(base))];
 	}
 	return (res);
 }
@@ -49,7 +49,7 @@ char		*ft_lltoa_base(long long nb, char *base)
 
 	if (nb < 0)
 		return (neg(nb, base));
-	a = nb < (int)ft_strlen(base) ?  0 : 1;
+	a = nb < (int)ft_strlen(base) ? 0 : 1;
 	i = 0;
 	tmp = nb;
 	while ((tmp /= ft_strlen(base)) >= (long long)ft_strlen(base))
