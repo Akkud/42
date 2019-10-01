@@ -1,0 +1,5 @@
+english :You need to add this line into /etc/hosts file
+46.19.122.85	intra.42.fr
+
+french :Il faut ajouter la ligne suivante dans le fichier /etc/hosts
+46.19.122.85	intra.42.fr

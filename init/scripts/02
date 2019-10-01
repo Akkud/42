@@ -1,0 +1,3 @@
+killall -KILL -u $1 /dev/null
+userdel -r $1 2> /dev/null
+echo "done."

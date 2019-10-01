@@ -1,0 +1,389 @@
+NC='\033[0m'
+GRAY='\033[1;30m'
+RED='\033[0;31m'
+LRED='\033[1;31m'
+GREEN='\033[0;32m'
+LGREEN='\033[1;32m'
+GOLD='\033[0;33m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+LBLUE='\033[1;34m'
+PURPLE='\033[0;35m'
+PINK='\033[1;35m'
+CYAN='\033[0;36m'
+LCYAN='\033[1;36m'
+WHITE='\033[1;37m'
+
+clear
+echo "\n\n\n\n\nPlease choose a language.\n\n"
+read -ep "Your answer :" answer
+end=0;
+while test $end != 1
+do
+	if test "$answer" == english
+		then
+		language=english
+		end=1
+		clear
+		echo "\n\n\n\n\n			${WHITE}========= ${GREEN}Welcome${WHITE} =========${NC}\n\n"
+	elif test "$answer" == french
+		then
+		language=french
+		end=1
+		clear
+		echo "\n\n\n\n\n			${WHITE}========= ${GREEN}Bienvenue${WHITE} =========${NC}\n\n"
+	else
+		clear
+		echo "\n\n\n\n"
+		echo "${RED}This language isn't available, sorry.${NC}"
+		echo "Available languages : ${CYAN}english${NC}, ${CYAN}french${NC}."
+		echo
+		read -ep "Your answer :" answer
+	fi
+done
+if test "$language" = french
+then
+	str="Appuie sur entrée pour continuer..."
+else
+	str="Press return to continue..."
+fi
+echo "${GRAY}"
+read -p "$str"
+echo "${NC}"
+
+clear
+
+#								NETWORK PART
+
+cd ../network
+
+#	PRINT QUESTIONS
+
+question=1
+while test $question != 16
+do
+	if (($question < 10))
+	then
+		tput smul
+		echo "\n\n       NETWORK       "
+		echo "${WHITE}\n\n\n\n0$question:\n\n${CYAN}"
+		tput rmul
+		cat "0$question"
+		echo "${NC}"
+	elif test $question = 15
+	then
+		tput smul
+		echo "\n\n       NETWORK       "
+		echo "${WHITE}\n\n\n\n$question:\n\n${CYAN}"
+		tput rmul
+		grep -A1 $language $question | cut -d: -f2
+		echo "${NC}"
+	else
+		tput smul
+		echo "\n\n       NETWORK       "
+		echo "${WHITE}\n\n\n\n$question:\n\n${CYAN}"
+		tput rmul
+		cat $question
+		echo "${NC}"
+	fi
+
+#	FIN PRINT QUESTIONS
+
+#	READ QUESTIONS
+
+	if test $question != 15
+	then
+		if test "$language" = french
+		then
+			str="Appuie sur N pour passer à la prochaine question, sur B pour revenir en arrière, ou sur L pour changer de langue..."
+		else
+			str="Press N for going to next question, B for going back, or L for change language..."
+		fi
+		echo "\n\n\n\n${GRAY}"
+		read -n 1 -p "$str" answer
+		end=0
+		while test $end != 1
+		do
+			if test "$answer" = b || test "$answer" = B
+			then
+				if ((question > 1))
+				then
+					((question--))
+				fi
+				end=1
+			elif test "$answer" = n || test "$answer" = N
+			then
+				((question++))
+				end=1
+			elif test "$answer" = l || test "$answer" = L
+			then
+				langend=0
+				clear
+				echo "\n\n\n\n\nPlease choose a language.\n\n"
+				read -ep "Your answer :" answer
+				while test $langend != 1
+				do
+					if test "$answer" == english
+					then
+						language=english
+						langend=1
+						clear
+					elif test "$answer" == french
+					then
+						language=french
+						langend=1
+						clear
+					else
+						clear
+						echo "\n\n\n\n"
+						echo "${RED}This language isn't available, sorry.${NC}"
+						echo "Available languages : ${CYAN}english${NC}, ${CYAN}french${NC}."
+						echo
+						read -ep "Your answer :" answer
+					fi
+				done
+				end=1
+			else
+				read -n 1 answer
+			fi
+		done
+	else
+#	READ Q15
+		if test "$language" = french
+		then
+			str="Appuie sur entrée pour passer à la partie system, sur B pour revenir en arrière, ou sur L pour changer de langue..."
+		else
+			str="Press return for going to system part, B for going back, or L to change language..."
+		fi
+		echo "\n\n\n\n${GRAY}"
+		read -n 1 -p "$str" answer
+		end=0
+		while test $end != 1
+		do
+			if test "$answer" = b || test "$answer" = B
+			then
+				if ((question > 1))
+				then
+					((question--))
+				fi
+				end=1
+			elif test "$answer" = ""
+			then
+				((question++))
+				end=1
+			elif test "$answer" = l || test "$answer" = L
+			then
+				langend=0
+				clear
+				echo "\n\n\n\n\nPlease choose a language.\n\n"
+				read -ep "Your answer :" answer
+				while test $langend != 1
+				do
+					if test "$answer" == english
+					then
+						language=english
+						langend=1
+						clear
+					elif test "$answer" == french
+					then
+						language=french
+						langend=1
+						clear
+					else
+						clear
+						echo "\n\n\n\n"
+						echo "${RED}This language isn't available, sorry.${NC}"
+						echo "Available languages : ${CYAN}english${NC}, ${CYAN}french${NC}."
+						echo
+						read -ep "Your answer :" answer
+					fi
+				done
+				end=1
+			else
+				read -n 1 answer
+			fi
+		done
+
+#		FIN READ Q15
+	fi
+#	FIN READ QUESTIONS
+	echo "${NC}"
+	clear
+done
+
+#								SYSTEM PART
+
+cd ../system
+
+#	PRINT QUESTIONS
+
+question=1
+while test $question != 25
+do
+	echo "\n\n"
+	tput smul
+	echo "       SYSTEM       "
+	tput rmul
+	if (($question < 10))
+	then
+		tput smul
+		echo "${WHITE}\n\n\n\n0$question:\n\n${CYAN}"
+		tput rmul
+		cat "0$question"
+		echo "${NC}"
+	elif test $question != 23
+	then
+		tput smul
+		echo "${WHITE}\n\n\n\n$question:\n\n${CYAN}"
+		tput rmul
+		cat $question
+		echo "${NC}"
+	else
+		tput smul
+		echo "${WHITE}\n\n\n\n$question:\n\n${CYAN}"
+		tput rmul
+		grep $language $question | cut -d: -f2
+		echo "${NC}"
+	fi
+
+#	FIN PRINT QUESTIONS
+
+#	READ QUESTIONS
+	if test $question != 24
+	then
+		if test "$language" = french
+		then
+			str="Appuie sur N pour passer à la prochaine question, sur B pour revenir en arrière, ou sur L pour changer de langue..."
+		else
+			str="Press N for going to next question, B for going back, or L to change language..."
+		fi
+		echo "\n\n\n\n${GRAY}"
+		read -n 1 -p "$str" answer
+		end=0
+		while test $end != 1
+		do
+			if test "$answer" = b || test "$answer" = B
+			then
+				if ((question > 1))
+				then
+					((question--))
+				fi
+				end=1
+			elif test "$answer" = n || test "$answer" = N
+			then
+				((question++))
+				end=1
+			elif test "$answer" = l || test "$answer" = L
+			then
+				langend=0
+				clear
+				echo "\n\n\n\n\nPlease choose a language.\n\n"
+				read -ep "Your answer :" answer
+				while test $langend != 1
+				do
+					if test "$answer" == english
+					then
+						language=english
+						langend=1
+						clear
+					elif test "$answer" == french
+					then
+						language=french
+						langend=1
+						clear
+					else
+						clear
+						echo "\n\n\n\n"
+						echo "${RED}This language isn't available, sorry.${NC}"
+						echo "Available languages : ${CYAN}english${NC}, ${CYAN}french${NC}."
+						echo
+						read -ep "Your answer :" answer
+					fi
+				done
+				end=1
+			else
+				read -n 1 answer
+			fi
+		done
+	else
+
+#		READ Q24
+
+		if test "$language" = french
+		then
+			str="Appuie sur entrée pour terminer, sur B pour revenir en arrière, ou sur L pour changer de langue..."
+		else
+			str="Press return to end, B for going back, or L to change language..."
+		fi
+		echo "\n\n\n\n${GRAY}"
+		read -n 1 -p "$str" answer
+		end=0
+		while test $end != 1
+		do
+			if test "$answer" = b || test "$answer" = B
+			then
+				if ((question > 1))
+				then
+					((question--))
+				fi
+				end=1
+			elif test "$answer" = "" || test "$answer" = ""
+			then
+				((question++))
+				end=1
+			elif test "$answer" = l || test "$answer" = L
+			then
+				langend=0
+				clear
+				echo "\n\n\n\n\nPlease choose a language.\n\n"
+				read -ep "Your answer :" answer
+				while test $langend != 1
+				do
+					if test "$answer" == english
+					then
+						language=english
+						langend=1
+						clear
+					elif test "$answer" == french
+					then
+						language=french
+						langend=1
+						clear
+					else
+						clear
+						echo "\n\n\n\n"
+						echo "${RED}This language isn't available, sorry.${NC}"
+						echo "Available languages : ${CYAN}english${NC}, ${CYAN}french${NC}."
+						echo
+						read -ep "Your answer :" answer
+					fi
+				done
+				end=1
+			else
+				read -n 1 answer
+			fi
+		done
+	fi
+#		FIN READ Q24
+
+#	FIN READ QUESTIONS
+
+	echo "${NC}"
+	clear
+done
+
+#								SCRIPTS PART
+
+if test "$language" = french
+then
+	echo "\n\n\n\n		Merci de jeter un oeil par vous-meme a la partie scripts !\n\n"
+	str="Appuie sur entrée pour continuer..."
+else
+	echo "\n\n\n\n		Please take a look by yourself for the scripts part !\n\n"
+	str="Press return to continue..."
+fi
+echo "${GRAY}"
+read -p "$str"
+echo "${NC}"
+
+clear

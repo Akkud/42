@@ -25,4 +25,4 @@ udev
 unattended-upgrades
 x11-common
 
-Ces services s'appellent des daemon et se trouvent dans le dossier "/etc/init.d".
+These are Daemon (see in "/etc/init.d")

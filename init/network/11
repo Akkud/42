@@ -1,1 +1,2 @@
-Le nat est le matériel qui fait le lien avec l'extérieur, son nom est "nat-1" et son ip 10.60.1.11.
+Name : "nat-1"
+IP : 10.60.1.11
