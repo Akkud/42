@@ -1,1 +1,1 @@
-ifconfig awdl0 | grep ether | cut -c8-
+ifconfig en1 | grep ether | cut -c8-
