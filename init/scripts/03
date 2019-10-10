@@ -222,7 +222,7 @@ cd ../system
 question=1
 while test $question != 25
 do
-	echo "\n\n"
+	echo "\n"
 	tput smul
 	echo "       SYSTEM       "
 	tput rmul

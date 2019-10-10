@@ -1,3 +1,5 @@
+#!/bin/bash
+
 killall -KILL -u $1
 userdel -r $1 2> /dev/null
 echo "done."
