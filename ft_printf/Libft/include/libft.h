@@ -6,16 +6,18 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 16:14:46 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/05/06 14:47:50 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/10/19 19:28:15 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
+# define GNL_BSIZE 20
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
+# include <limits.h>
+# include <fcntl.h>
 
 typedef struct	s_list
 {
@@ -97,5 +99,6 @@ long long int	ft_power(long long int nb, int power);
 char			*ft_sjoin1(char **s1, char const *s2);
 char			*ft_sjoin2(char const *s1, char **s2);
 char			*ft_sjoin3(char **s1, char **s2);
+int			get_next_line(int fd, char **line);
 
 #endif

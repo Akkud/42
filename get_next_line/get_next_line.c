@@ -6,16 +6,16 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 18:42:10 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/12 18:49:20 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/10/19 18:31:22 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "libft/includes/libft.h"
 
-static char	*f(char *tb, int coucou)
+static char	*f(char *tb, int which)
 {
-	if (coucou == 1)
+	if (which == 1)
 		return (ft_strchr(tb, '\n'));
 	else
 		return (ft_strsub(tb, 0, (size_t)(f(tb, 1) - tb)));

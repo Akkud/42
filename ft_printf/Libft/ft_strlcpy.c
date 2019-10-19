@@ -6,11 +6,11 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 14:41:28 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/08 16:55:50 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/10/19 18:58:43 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "include/libft.h"
 
 size_t		ft_strlcpy(char *dest, char *src, size_t size)
 {

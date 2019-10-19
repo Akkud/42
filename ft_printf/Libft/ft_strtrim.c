@@ -6,11 +6,11 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 13:27:21 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/08 16:58:09 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/10/19 19:00:10 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "include/libft.h"
 
 char	*ft_strtrim(char const *s)
 {

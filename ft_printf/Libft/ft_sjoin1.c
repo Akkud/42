@@ -6,11 +6,11 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 14:49:09 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/05/14 16:51:46 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/10/19 18:57:13 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "include/libft.h"
 
 char	*ft_sjoin1(char **s1, char const *s2)
 {

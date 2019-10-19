@@ -6,11 +6,11 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/12 18:13:34 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/05/06 14:08:41 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/10/19 18:58:01 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "include/libft.h"
 
 void	ft_strdel(char **as)
 {

@@ -6,11 +6,11 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/08 19:00:40 by pacharbo          #+#    #+#             */
-/*   Updated: 2018/12/08 16:55:07 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/10/19 18:59:43 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include "include/libft.h"
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {

@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/05 18:34:26 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/05/20 18:18:31 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/10/19 19:04:05 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdlib.h>
-# include "../Libft/includes/libft.h"
+# include "../Libft/include/libft.h"
 # include <stdio.h>
 
 typedef	struct	s_printf
