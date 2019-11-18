@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strstr.c                                        :+:      :+:    :+:   */
+/*   ft_pathjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 18:17:33 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/11/04 18:18:26 by pacharbo         ###   ########.fr       */
+/*   Created: 2019/11/07 18:16:11 by pacharbo          #+#    #+#             */
+/*   Updated: 2019/11/07 18:20:02 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/libft.h"
 
-char	*ft_strstr(const char *haystack, const char *needle)
+char		*ft_pathjoin(char *str1, char *str2)
 {
-	int a;
-	int b;
+	char	*ret;
+	char	*tmp;
+	size_t	s1len;
 
-	a = 0;
-	if (!needle || !*needle)
-		return ((char*)haystack);
-	while (haystack[a])
-	{
-		b = 0;
-		while (haystack[a] == needle[b] && haystack[a])
-		{
-			a++;
-			b++;
-		}
-		if (!needle[b])
-			return ((char*)haystack + a - b);
-		else if (!(haystack[a]))
-			break ;
-		else
-			a = a - b;
-		a++;
-	}
-	return (0);
+	if (!str1 || !str2)
+		return (0);
+	s1len = ft_strlen(str1);
+	if (!s1len || (str1[s1len - 1] == '/'))
+		return (ft_strjoin(str1, str2));
+	if (!(tmp = ft_strjoin(str1, "/")))
+		return (0);
+	ret = ft_strjoin(tmp, str2);
+	free(tmp);
+	return (ret);
 }

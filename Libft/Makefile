@@ -6,7 +6,7 @@
 #    By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/14 19:58:48 by pacharbo          #+#    #+#              #
-#    Updated: 2019/10/19 19:30:25 by pacharbo         ###   ########.fr        #
+#    Updated: 2019/11/07 18:17:09 by pacharbo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,11 @@ SRCS = ft_atoi.c \
 	ft_sjoin2.c \
 	ft_sjoin3.c \
 	get_next_line.c \
+	ft_strcut.c \
+	ft_strrep.c \
+	ft_isdir.c \
+	ft_clean_str_tab.c \
+	ft_pathjoin.c \
 
 OBJS = $(SRCS:.c=.o)
 

@@ -1,40 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strstr.c                                        :+:      :+:    :+:   */
+/*   ft_clean_str_tab.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 18:17:33 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/11/04 18:18:26 by pacharbo         ###   ########.fr       */
+/*   Created: 2019/11/07 18:15:22 by pacharbo          #+#    #+#             */
+/*   Updated: 2019/11/07 18:15:42 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/libft.h"
 
-char	*ft_strstr(const char *haystack, const char *needle)
+void		ft_clean_str_tab(char **tab)
 {
-	int a;
-	int b;
+	int		i;
 
-	a = 0;
-	if (!needle || !*needle)
-		return ((char*)haystack);
-	while (haystack[a])
+	i = 0;
+	if (tab)
 	{
-		b = 0;
-		while (haystack[a] == needle[b] && haystack[a])
+		while (tab[i])
 		{
-			a++;
-			b++;
+			free(tab[i]);
+			i++;
 		}
-		if (!needle[b])
-			return ((char*)haystack + a - b);
-		else if (!(haystack[a]))
-			break ;
-		else
-			a = a - b;
-		a++;
+		free(tab);
 	}
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 14:26:22 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/10/19 18:58:07 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/10/24 17:58:45 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(const char *src)
 	char	*str;
 
 	a = 0;
+	if (!src)
+		return (0);
 	while (src[a])
 		a++;
 	if (!(str = (char*)malloc(sizeof(char) * (a + 1))))

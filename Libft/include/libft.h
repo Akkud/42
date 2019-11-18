@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 16:14:46 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/10/19 19:28:15 by pacharbo         ###   ########.fr       */
+/*   Updated: 2019/11/07 18:19:18 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <string.h>
 # include <limits.h>
 # include <fcntl.h>
+# include <dirent.h>
 
 typedef struct	s_list
 {
@@ -99,6 +100,11 @@ long long int	ft_power(long long int nb, int power);
 char			*ft_sjoin1(char **s1, char const *s2);
 char			*ft_sjoin2(char const *s1, char **s2);
 char			*ft_sjoin3(char **s1, char **s2);
-int			get_next_line(int fd, char **line);
+int				get_next_line(int fd, char **line);
+char			*ft_strcut(char *str, char *delim, unsigned int field);
+char			*ft_strrep(char *str, char *rem, char *rep);
+int				ft_isdir(char *path);
+void			ft_clean_str_tab(char **tab);
+char			*ft_pathjoin(char *str1, char *str2);
 
 #endif
