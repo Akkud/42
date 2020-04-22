@@ -65,10 +65,8 @@ int			precision(t_printf *data)
 
 int			field_width_hexa(t_printf *data, char **str)
 {
-	int		a;
 	char	*tmp;
 
-	a = 0;
 	tmp = data->res;
 	if (!(*str = ft_sjoin2("0x", str)))
 	{

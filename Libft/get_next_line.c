@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/08 18:42:10 by pacharbo          #+#    #+#             */
-/*   Updated: 2019/10/19 19:30:54 by pacharbo         ###   ########.fr       */
+/*   Updated: 2020/04/22 07:23:37 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	*f(char *tb, int which)
 
 int			get_next_line(int fd, char **line)
 {
-	static char		*tb[OPEN_MAX];
+	static char		*tb[FOPEN_MAX];
 	char			buf[GNL_BSIZE + 1];
 	char			*tmp;
 	int				lu;
