@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exp_tools.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pacharbo <pacharbo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/21 07:55:00 by pacharbo          #+#    #+#             */
+/*   Updated: 2020/05/21 07:55:01 by pacharbo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "libft.h"
 
@@ -7,7 +19,7 @@ void	exp_substitute(t_exp *exp, char *str)
 
 	if ((!exp->res && !(res = ft_strdup(str)))
 	|| (exp->res && !(res = ft_strjoin(exp->res, str))))
-		ft_ex("Cannot allocate memory\n");
+		ft_ex(NULL, "cannot allocate memory\n");
 	free(exp->res);
 	exp->res = res;
 }
@@ -37,14 +49,14 @@ void	exp_flush_buf(t_exp *exp, char **str)
 	if (!str || !*str)
 	{
 		if (!(*str = ft_strdup(exp->buf)))
-			ft_ex("Cannot allocate memory\n");
+			ft_ex(NULL, "cannot allocate memory\n");
 		ft_bzero(exp->buf, exp->i);
 		exp->i = 0;
 		return ;
 	}
 	tmp = *str;
 	if (!(*str = ft_strjoin(*str, exp->buf)))
-		ft_ex("Cannot allocate memory\n");
+		ft_ex(NULL, "cannot allocate memory\n");
 	free(tmp);
 	ft_bzero(exp->buf, exp->i);
 	exp->i = 0;

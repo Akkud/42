@@ -1,4 +1,5 @@
-NAME = libftdb.a
+NAME = libft.a
+
 
 PRNTFSRC += conv.c
 PRNTFSRC += conv_digit.c
@@ -107,8 +108,7 @@ CC = clang
 COMPILE = $(CC) -c
 WFLAGS = -Wall -Werror -Wextra
 IFLAGS = -I $(IPATH)
-DBFLAGS = -fsanitize=address -g
-CFLAGS = $(DBFLAGS) $(WFLAGS) $(IFLAGS)
+CFLAGS = $(WFLAGS) $(IFLAGS)
 
 MKDIR = mkdir -p
 CLEANUP = rm -rf

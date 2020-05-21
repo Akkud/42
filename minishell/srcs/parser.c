@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pacharbo <pacharbo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/21 07:56:15 by pacharbo          #+#    #+#             */
+/*   Updated: 2020/05/21 07:58:35 by pacharbo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int		is_assign(t_msh *data)
@@ -16,7 +28,7 @@ int		is_assign(t_msh *data)
 		return (0);
 	}
 	if (!(value = ft_strdup(equal + 1)))
-		ft_ex("minishell: cannot allocate memory");
+		ft_ex(NULL, "cannot allocate memory");
 	exp_main(data, &value, 1);
 	ft_setenv(data->env, name, value);
 	*equal = '=';
@@ -35,14 +47,15 @@ int		builtin_call(t_msh *data)
 	else if (!ft_strcmp("setenv", data->input[0]))
 	{
 		if (!data->input[1])
-		{
-			ft_putendl_fd("Usage: setenv [name] [value]", 2);
-			return (1);
-		}
+			return (ft_err(NULL, "Error.\nUsage: setenv [name] [value]"));
 		ft_setenv(data->env, data->input[1], data->input[2]);
 	}
 	else if (!ft_strcmp("unsetenv", data->input[0]))
+	{
+		if (!data->input[1])
+			return (ft_err(NULL, "Error.\nUsage: unsetenv [name]"));
 		ft_unsetenv(data, data->input[1]);
+	}
 	else if (!ft_strcmp("exit", data->input[0]))
 		exit(EXIT_SUCCESS);
 	else
@@ -50,24 +63,30 @@ int		builtin_call(t_msh *data)
 	return (1);
 }
 
-
 int		parser(t_msh *data)
 {
 	char	**input;
+	int		ret;
 
+	ret = 0;
 	if (!data->input[0] || is_assign(data))
 		return (1);
 	input = data->input;
 	while (*input)
 		exp_main(data, input++, 0);
-	if (builtin_call(data))
+	if (!**data->input)
 		return (1);
-
-	//	check chemin absolu (depuis racine)
-
-	//	check variable PATH
-
-	//	check chemin relatif
-
-	return (1);
+	if ((ret = builtin_call(data)))
+		return (ret);
+	if (!ret && **data->input == '/')
+		ret = exec_absolute_path(data);
+	else if (!ret && !(ret = exec_path(data)))
+		ret = exec_relative_path(data);
+	if (!ret)
+		ft_err(data->input[0], ": command not found");
+	else if (ret == -1)
+		ft_err(data->input[0], ": cannot execute the file");
+	else if (ret == -2)
+		ft_err(data->input[0], ": is a directory");
+	return (ret);
 }

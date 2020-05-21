@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exp.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pacharbo <pacharbo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/21 07:54:50 by pacharbo          #+#    #+#             */
+/*   Updated: 2020/05/21 07:56:48 by pacharbo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "libft.h"
 
-int		exp_main(t_msh *data,char **word, int assign)
+int		exp_main(t_msh *data, char **word, int assign)
 {
 	t_exp		exp;
 	int			ret;

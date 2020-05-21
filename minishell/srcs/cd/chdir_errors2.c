@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   chdir_errors2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pacharbo <pacharbo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/21 07:53:59 by pacharbo          #+#    #+#             */
+/*   Updated: 2020/05/21 07:54:00 by pacharbo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int			check_enoent(char *path)
@@ -8,7 +20,7 @@ int			check_enoent(char *path)
 	char			*tmp;
 
 	ret = 0;
-	if (!*path)
+	if (!*path || !ft_strcmp(path, "/"))
 		return (1);
 	if (!(tmp = ft_strrchr(path, '/')))
 		return (0);
@@ -69,27 +81,26 @@ int			check_eloop(char *path)
 int			check_whole_path(char *path)
 {
 	char			*idx;
-	char			tmp;
+	int				ret;
 
 	idx = path;
+	ret = 0;
 	while (1)
 	{
 		if ((idx = ft_strchr(idx, '/')))
-		{
-			tmp = *idx;
 			*idx = '\0';
-		}
-		if (!check_enoent(path))
-			return (1);
-		if (!check_eloop(path))
-			return (2);
-		if (!check_enotdir(path))
-			return (3);
-		if (!check_eacces(path))
-			return (4);
-		if (!idx)
-			return (0);
-		*(idx) = tmp;
+		if (!ret && !check_enoent(path))
+			ret = 1;
+		if (!ret && !check_eloop(path))
+			ret = 2;
+		if (!ret && !check_enotdir(path))
+			ret = 3;
+		if (!ret && !check_eacces(path))
+			ret = 4;
+		if (idx)
+			*(idx) = '/';
+		if (!idx || ret)
+			return (ret);
 		idx++;
 	}
 }

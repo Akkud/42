@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pacharbo <pacharbo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/21 07:54:12 by pacharbo          #+#    #+#             */
+/*   Updated: 2020/05/21 08:21:00 by pacharbo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
@@ -22,18 +34,18 @@ int			cd_setenv(t_env *env, char *name, char *value)
 
 int			cd_oldpwd(t_msh *data)
 {
-	char		**str;
-	char		*oldpwd;
-	int			ret;
+	char	**str;
+	char	*oldpwd;
+	int		ret;
 
 	oldpwd = ft_getenv(data->env, "OLDPWD");
 	if (!oldpwd || !*oldpwd)
 	{
-		ft_printf("minishell: cd: OLDPWD not set\n");
+		ft_err("cd: ", "OLDPWD not set");
 		return (-1);
 	}
 	if (!(str = (char**)malloc(sizeof(char*) * 2)))
-		return (0);
+		ft_ex(NULL, "cannot allocate memory");
 	str[0] = oldpwd;
 	str[1] = NULL;
 	ret = ft_cd(str, data);
@@ -57,7 +69,7 @@ int			ft_cd(char **str, t_msh *data)
 	else if (!ft_strcmp(opr, "-"))
 		return (cd_oldpwd(data));
 	if (!(curpath = cd_setcurpath(data, opr)))
-		return (0);
+		ft_ex(NULL, "cannot allocate memory");
 	if (opt == 'L')
 		return (cd_logically(data, curpath, opr));
 	return (cd_change_directory(data, curpath, opr, NULL));

@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 18:18:53 by pacharbo          #+#    #+#             */
-/*   Updated: 2020/04/23 06:16:38 by pacharbo         ###   ########.fr       */
+/*   Updated: 2020/05/21 07:48:55 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 
 char		*ft_strrep(char *str, char *rem, char *rep)
 {
-	char	*ret;
-	char	*occurence;
+	char		*ret;
+	char		*occurence;
 	size_t		replen;
 
 	replen = rep ? ft_strlen(rep) : 0;

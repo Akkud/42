@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tilde_exp.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pacharbo <pacharbo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/21 07:55:42 by pacharbo          #+#    #+#             */
+/*   Updated: 2020/05/21 07:55:44 by pacharbo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "libft.h"
 
@@ -8,9 +20,9 @@ int		get_tilde_exp(t_exp *exp)
 	if (!(pwd = getpwnam(exp->buf)))
 		return (0);
 	if (exp->res && !(exp->res = ft_sjoin1(&exp->res, pwd->pw_dir)))
-		ft_ex("Cannot allocate memory\n");
+		ft_ex(NULL, "cannot allocate memory\n");
 	else if (!exp->res && !(exp->res = ft_strdup(pwd->pw_dir)))
-		ft_ex("Cannot allocate memory\n");
+		ft_ex(NULL, "cannot allocate memory\n");
 	return (1);
 }
 
@@ -21,13 +33,13 @@ int		get_home_val(t_msh *data, t_exp *exp)
 
 	if (!(var = ft_getenv(data->env, "HOME"))
 	&& !(tilde = ft_strnew(0)))
-		ft_ex("Cannot allocate memory\n");
+		ft_ex(NULL, "cannot allocate memory\n");
 	else if (var && !(tilde = ft_strdup(var)))
-		ft_ex("Cannot allocate memory\n");
+		ft_ex(NULL, "cannot allocate memory\n");
 	if (exp->res && !(exp->res = ft_sjoin1(&exp->res, tilde)))
-		ft_ex("Cannot allocate memory\n");
+		ft_ex(NULL, "cannot allocate memory\n");
 	else if (!exp->res && !(exp->res = ft_strdup(tilde)))
-		ft_ex("Cannot allocate memory\n");
+		ft_ex(NULL, "cannot allocate memory\n");
 	free(tilde);
 	return (1);
 }

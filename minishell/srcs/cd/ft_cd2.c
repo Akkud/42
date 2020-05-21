@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cd2.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pacharbo <pacharbo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/21 07:54:06 by pacharbo          #+#    #+#             */
+/*   Updated: 2020/05/21 07:54:07 by pacharbo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 char			cd_getopt(char **str, int *i)
@@ -13,9 +25,10 @@ char			cd_getopt(char **str, int *i)
 			opt = str[a][1];
 		else if (str[a][1] != '-' || (str[a][1] == '-' && str[a][2]))
 		{
-			ft_printf("minishell: cd: -%c: invalid option\n",
-			str[a][1]);
-			ft_printf("cd: usage: cd [-L|-P] [dir]\n");
+			ft_putstr_fd("minishell: cd: -", 2);
+			ft_putchar_fd(str[a][1], 2);
+			ft_putendl_fd(": invalid option", 2);
+			ft_putendl_fd("Usage: cd [-L|-P] [dir]", 2);
 			return (0);
 		}
 		if (str[a][1] == '-')
@@ -32,20 +45,24 @@ static char		*ft_del_dots(char *curpath)
 	size_t	clen;
 
 	if (!curpath)
-		return (0);
+		return (NULL);
 	clen = ft_strlen(curpath);
-	if (ft_strnstr(curpath, "./", 2))
-		res = ft_strdup(curpath + 2);
-	else if (clen > 2 && curpath[clen - 1] == '.' && curpath[clen - 2] == '/')
+	if (!clen)
+		res = ft_strdup(".");
+	if (clen > 1 && curpath[clen - 1] == '/')
+		curpath[clen - 1] = 0;
+	if (clen > 2 && curpath[clen - 1] == '.' && curpath[clen - 2] == '/')
 	{
 		curpath[clen - 2] = '\0';
 		res = ft_strdup(curpath);
 	}
+	else if (ft_strequ(curpath, "/."))
+		res = ft_strdup("/");
 	else if (ft_strstr(curpath, "/./"))
 		res = ft_strrep(curpath, "/./", "/");
 	else
 		return (curpath);
-	free(curpath);
+	ft_strdel(&curpath);
 	return (ft_del_dots(res));
 }
 
@@ -59,7 +76,7 @@ static char		*ft_del_dotdots2(char *curpath, int i)
 	if (!ft_strncmp(curpath, "/..", 3))
 		return (ft_strrep(curpath, "..", NULL));
 	if (!(tmp = ft_strdup(curpath)))
-		return (0);
+		ft_ex(NULL, "cannot allocate memory");
 	tmp[i - 1] = '\0';
 	tmp2 = ft_strrchr(tmp, '/') + 1;
 	tmp[i - 1] = '/';

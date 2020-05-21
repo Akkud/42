@@ -1,5 +1,4 @@
 NAME = minishell
-NAMEDB = minishell_db
 
 SRC += cd/ft_cd.c 
 SRC += cd/ft_cd_core.c
@@ -14,6 +13,7 @@ SRC += exp/parameter.c
 SRC += exp/param_resolve.c
 SRC += exp/tilde_exp.c
 SRC += exp/tilde_assign.c
+SRC += exec.c
 SRC += main.c
 SRC += parser.c
 SRC += tools.c
@@ -27,11 +27,9 @@ INCLUDES += minishell.h
 
 CC = clang
 COMPILE = $(CC) -c
-COMPILEDB = $(CC) -g3
 WFLAGS = -Wall -Werror -Wextra
 IFLAGS = -I $(IPATH) -I $(LIPATH)
 CFLAGS = $(WFLAGS) $(IFLAGS)
-DBFLAGS = -fsanitize=address
 
 MKDIR = mkdir -p
 CLEANUP = rm -rf
@@ -42,7 +40,6 @@ IPATH = includes/
 LPATH = libft/
 LIPATH = libft/includes/
 LIB = $(LPATH)libft.a
-LIBDB = $(LPATH)libftdb.a
 
 OBJ = $(SRC:.c=.o)
 
@@ -52,12 +49,7 @@ INCS = $(addprefix $(IPATH),$(INCLUDES))
 
 all : $(NAME)
 
-lib :
-	$(MAKE) -C $(LPATH) clean
-	mv -n libft/Makefile libft/Makefile_db
-	-mv -n libft/Makefile_n libft/Makefile
-
-$(NAME) : lib $(LIB) $(OPATHS) $(OBJS) Makefile
+$(NAME) : lib $(OPATHS) $(OBJS) Makefile
 	$(CC) -o $@ $(OBJS) $(LIB)
 
 $(OBJS) : $(OPATH)%.o : $(SPATH)%.c $(INCS)
@@ -66,19 +58,8 @@ $(OBJS) : $(OPATH)%.o : $(SPATH)%.c $(INCS)
 $(OPATHS) :
 	$(MKDIR) $@
 
-$(LIB) :
+lib :
 	$(MAKE) -C $(LPATH)
-
-libdb :
-	$(MAKE) -C $(LPATH) clean
-	mv -n libft/Makefile libft/Makefile_n
-	-mv -n libft/Makefile_db libft/Makefile
-
-$(LIBDB) :
-	$(MAKE) -C $(LPATH)
-
-debug : libdb $(LIBDB)
-	$(COMPILEDB) $(DBFLAGS) $(CFLAGS) -o $(NAMEDB) $(SRCS) $(LIBDB)
 
 clean :
 	$(MAKE) -C $(LPATH) clean
@@ -88,7 +69,6 @@ fclean : clean
 	$(MAKE) -C $(LPATH) fclean
 	$(CLEANUP) $(OPATH)
 	$(CLEANUP) $(NAME)
-	$(CLEANUP) $(NAMEDB)
 
 re : fclean all
 

@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pacharbo <pacharbo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/21 07:32:57 by pacharbo          #+#    #+#             */
+/*   Updated: 2020/05/21 07:33:02 by pacharbo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
-
-int		count_words(char *str, char *set)
+int		nbwords(char *str, char *set)
 {
 	int words;
 
@@ -36,15 +47,12 @@ int		word_len(char *str, char *set)
 char	**ft_split(char *str, char *set)
 {
 	char	**ret;
-	int		words;
 	int		wlen;
 	int		i;
 
-	words = count_words(str, set);
 	i = 0;
-	if (!(ret = (char **)malloc(sizeof(char *) * (words + 1))))
+	if (!(ret = (char **)ft_memalloc(sizeof(char *) * (nbwords(str, set) + 1))))
 		return (0);
-	ret[words] = NULL;
 	while (*str)
 	{
 		if (!ft_strchr(set, *str))

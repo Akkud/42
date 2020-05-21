@@ -6,7 +6,7 @@
 /*   By: pacharbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 16:14:46 by pacharbo          #+#    #+#             */
-/*   Updated: 2020/05/04 14:25:02 by pacharbo         ###   ########.fr       */
+/*   Updated: 2020/05/16 09:40:58 by pacharbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define LIBFT_H
 # define GNL_BSIZE 20
 # include <stdlib.h>
-# include <stdio.h>
 # include <unistd.h>
 # include <string.h>
+# include <stdio.h>
 # include <limits.h>
 # include <fcntl.h>
 # include <dirent.h>

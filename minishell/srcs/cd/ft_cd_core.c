@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_cd_core.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pacharbo <pacharbo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/21 07:54:18 by pacharbo          #+#    #+#             */
+/*   Updated: 2020/05/21 08:13:46 by pacharbo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /*
 **	MAN USED : https://www.unix.com/man-page/posix/1posix/cd/
-**
 **
 **
 **	Steps 1 & 2
@@ -17,11 +28,11 @@ int		cd_home(t_msh *data)
 	home = ft_getenv(data->env, "HOME");
 	if (!home || !*home)
 	{
-		ft_printf("minishell: cd: HOME not set\n");
+		ft_err("cd: ", "HOME not set");
 		return (-1);
 	}
 	if (!(str = (char**)malloc(sizeof(char*) * 2)))
-		return (0);
+		ft_ex(NULL, "cannot allocate memory");
 	str[0] = home;
 	str[1] = NULL;
 	ret = ft_cd(str, data);
@@ -38,8 +49,8 @@ char	*cd_setcurpath(t_msh *data, char *opr)
 	char	*ret;
 	char	**cdpath;
 
-	if (*opr != '/' && (ft_strncmp(opr, "./", 2) || ft_strcmp(opr, "."))
-			&& ((ft_strncmp(opr, "../", 3)) || ft_strcmp(opr, "..")))
+	if ((!ft_strncmp(opr, "./", 2) || !ft_strcmp(opr, ".")
+	|| !ft_strncmp(opr, "../", 3) || !ft_strcmp(opr, "..")))
 		return (ft_strdup(opr));
 	ret = ft_getenv(data->env, "CDPATH");
 	cdpath = ft_strsplit(ret, ':');
@@ -48,11 +59,11 @@ char	*cd_setcurpath(t_msh *data, char *opr)
 		ret = ft_pathjoin(*cdpath, opr);
 		if (ft_isdir(ret))
 			break ;
-		free(ret);
+		ft_strdel(&ret);
 		cdpath++;
 	}
 	ft_clean_str_tab(cdpath);
-	if (!ret && (ft_isdir(opr)))
+	if (!ret)
 		return (ft_strdup(opr));
 	return (ret);
 }
@@ -68,15 +79,16 @@ int		cd_logically(t_msh *data, char *curpath, char *opr)
 
 	if (!(pwd = ft_strdup(ft_getenv(data->env, "PWD"))))
 		if (!(pwd = getcwd(NULL, 0)))
-			return (0);
+			ft_ex(NULL, "cannot allocate memory");
 	if (*curpath != '/')
 	{
 		tmp = curpath;
-		curpath = ft_pathjoin(pwd, curpath);
+		if (!(curpath = ft_pathjoin(pwd, curpath)))
+			ft_ex(NULL, "cannot allocate memory");
 		free(tmp);
 	}
 	if (!(curpath = cd_del_dotcomponents(curpath, opr)))
-		return (0);
+		ft_ex(NULL, "cannot allocate memory");
 	return (cd_set_relativepath(data, curpath, opr, pwd));
 }
 
@@ -97,6 +109,7 @@ int		cd_set_relativepath(t_msh *data, char *curpath, char *opr, char *pwd)
 		tmp = curpath[ft_strlen(pwd)] == '/' ?
 		ft_strdup(curpath + ft_strlen(pwd) + 1) :
 		ft_strdup(curpath + ft_strlen(pwd));
+		ft_strdel(&curpath);
 		curpath = tmp;
 	}
 	free(pwd);
@@ -116,7 +129,7 @@ int		cd_change_directory(t_msh *data, char *curpath, char *opr, char *pwd)
 
 	if (!(oldpwd = ft_strdup(ft_getenv(data->env, "PWD"))))
 		if (!(oldpwd = getcwd(NULL, 0)))
-			return (0);
+			ft_ex(NULL, "cannot allocate memory");
 	if (chdir(curpath) == -1)
 	{
 		check_chdir_errors(&error, curpath, opr);
@@ -124,10 +137,10 @@ int		cd_change_directory(t_msh *data, char *curpath, char *opr, char *pwd)
 	}
 	free(curpath);
 	if (!pwd && !(pwd = getcwd(NULL, 0)))
-		return (0);
+		ft_ex(NULL, "cannot allocate memory");
 	if (!cd_setenv(data->env, "PWD", pwd)
 	|| !cd_setenv(data->env, "OLDPWD", oldpwd))
-		return (0);
+		ft_ex(NULL, "cannot allocate memory");
 	free(oldpwd);
 	return (1);
 }

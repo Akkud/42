@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pacharbo <pacharbo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/05/21 07:55:53 by pacharbo          #+#    #+#             */
+/*   Updated: 2020/05/21 07:58:01 by pacharbo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 int		print_prompt(t_msh *data)
 {
-	int	i;
-	int	slash;
+	int		i;
+	int		slash;
 	char	*home;
-	int	homelen;
+	int		homelen;
 
 	i = -1;
 	slash = 0;
@@ -34,7 +46,7 @@ void	ft_prompt(t_msh *data)
 	char		*line;
 
 	if (!(data->cwd = getcwd(NULL, 0)))
-		ft_ex("minishell: cannot allocate memory");
+		ft_ex(NULL, "cannot allocate memory\n");
 	ft_putstr("\e[36m");
 	print_prompt(data);
 	ft_putstr("\e[39;49m");
@@ -42,7 +54,7 @@ void	ft_prompt(t_msh *data)
 	if (!(data->input = ft_split(line, " \t")))
 	{
 		ft_printf("oh no split !\n");
-		ft_ex("minishell: cannot allocate memory");
+		ft_ex(NULL, "cannot allocate memory\n");
 	}
 	free(line);
 }
@@ -54,7 +66,7 @@ int		main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 	if (!(data.env = ft_setenvlist(envp)))
-		ft_ex("minishell: cannot allocate memory");
+		ft_ex(NULL, "cannot allocate memory\n");
 	while (1)
 	{
 		ft_prompt(&data);
