@@ -98,6 +98,7 @@ SRC += ft_strndup.c
 SRC += ft_del_tab.c
 SRC += ft_split.c
 SRC += ft_isname.c
+SRC += ft_lstfree.c
 
 OPATHS += $(OPATH)ft_printf
 

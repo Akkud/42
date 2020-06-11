@@ -111,5 +111,6 @@ char			*ft_strndup(const char *s1, size_t n);
 void			ft_del_tab(void **tab);
 char			**ft_split(char *str, char *set);
 int				ft_isname(char *str);
+void			ft_lstfree(t_list **lst);
 
 #endif

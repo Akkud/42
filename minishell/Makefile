@@ -49,7 +49,7 @@ INCS = $(addprefix $(IPATH),$(INCLUDES))
 
 all : $(NAME)
 
-$(NAME) : lib $(OPATHS) $(OBJS) Makefile
+$(NAME) : $(LIB) $(OPATHS) $(OBJS) Makefile
 	$(CC) -o $@ $(OBJS) $(LIB)
 
 $(OBJS) : $(OPATH)%.o : $(SPATH)%.c $(INCS)
@@ -58,7 +58,7 @@ $(OBJS) : $(OPATH)%.o : $(SPATH)%.c $(INCS)
 $(OPATHS) :
 	$(MKDIR) $@
 
-lib :
+$(LIB) :
 	$(MAKE) -C $(LPATH)
 
 clean :
