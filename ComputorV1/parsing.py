@@ -4,16 +4,10 @@ import settings
 import display
 
 
-def power_checks(s, i):
-    if i + 1 < len(s) and s[i + 1].isdigit():
-        if '3' <= s[i + 1] <= '9' or (i + 2 < len(s) and s[i + 2].isdigit()):
+def degrees_checks():
+    for k, v in settings.degrees.items():
+        if v != 0:
             display.polynomial_degree_err()
-    if i + 1 < len(s) and s[i + 1] == '^':
-        if i + 2 >= len(s) or not s[i + 2].isdigit():
-            display.syntax_err()
-        elif i + 2 < len(s) and s[i + 1].isdigit():
-            if '3' <= s[i + 1] <= '9' or (i + 3 < len(s) and s[i + 2].isdigit()):
-                display.polynomial_degree_err()
 
 
 def assign_value(value, signed):
@@ -22,25 +16,53 @@ def assign_value(value, signed):
     return value
 
 
-def x_case(s, i, value, signed, equal):
-    if i + 1 < len(s):
-        if s[i + 1] == '2' or s[i + 1] == '²' or (s[i + 1] == '^' and s[i + 2] == '2'):
-            if equal:
-                settings.ap += assign_value(value, signed)
-            else:
-                settings.a += assign_value(value, signed)
-        elif s[i + 1] == '1' or (s[i + 1] == '^' and s[i + 2] == '1') or not s[i + 1].isdigit():
-            if equal:
-                settings.bp += assign_value(value, signed)
-            else:
-                settings.b += assign_value(value, signed)
-        elif s[i + 1] == '0' or (s[i + 1] == '^' and s[i + 2] == '0'):
-            if equal:
-                settings.cp += assign_value(value, signed)
-            else:
-                settings.c += assign_value(value, signed)
+def x_case(s, index, value, signed, equal):
+    i = index
+    degree = 0
+
+    # print('x case, value =', value, '\nsigned =', signed, '\nequal =', equal, '\ns[i] =', s[i], '\n\n')
+
+    if i + 1 >= len(s) or not s[i + 1].isdigit():
+        if equal:
+            settings.bp += assign_value(value, signed)
+        else:
+            settings.b += assign_value(value, signed)
+        return
+    i += 1
+
+    if s[i] == '^':
+        if i + 1 >= len(s) or not s[i + 1].isdigit():
+            display.syntax_err()
+        i += 1
+
+    while i < len(s) and s[i].isdigit():
+        degree = degree * 10 + int(s[i])
+        i += 1
+
+    if degree == 2:
+        if equal:
+            settings.ap += assign_value(value, signed)
+        else:
+            settings.a += assign_value(value, signed)
+    elif degree == 1:
+        if equal:
+            settings.bp += assign_value(value, signed)
+        else:
+            settings.b += assign_value(value, signed)
+    elif degree == 0:
+        if equal:
+            settings.cp += assign_value(value, signed)
+        else:
+            settings.c += assign_value(value, signed)
     else:
-        settings.bp += assign_value(value, signed)
+        if equal:
+            v = value * -1
+        else:
+            v = value
+        if degree in settings.degrees:
+            settings.degrees[degree] += v
+        else:
+            settings.degrees[degree] = v
 
 
 def parse_equation(s):
@@ -49,19 +71,23 @@ def parse_equation(s):
     equal = False
     signed = False
     stored = False
+    decimals = 0
 
     for i in range(len(s)):
-        if s[i] == '=' or s[i] == '+' or s[i] == '-' or s[i] == '*' or s[i] == ' ':
-            if s[i] != '*' and s[i] != ' ':
+        if s[i] == '=' or s[i] == '+' or s[i] == '-' or s[i] == '*' or s[i] == ' ' or s[i] == '.':
+            if s[i] == '=' or s[i] == '+' or s[i] == '-':
                 if number == -1 and s[i] != '-':
                     display.syntax_err()
                 if not stored:
                     if equal:
+                        if s[i] == '=':
+                            display.syntax_err()
                         settings.cp += assign_value(value, signed)
                     else:
                         settings.c += assign_value(value, signed)
                 value = 0
                 number = -1
+                decimals = 0
                 stored = False
             if s[i] == '=':
                 equal = True
@@ -71,21 +97,28 @@ def parse_equation(s):
             elif s[i] == '-':
                 signed = True
             elif s[i] == '*':
-                if number == -1 or number == 0:
+                if number == -1 or number == 0 or stored:
                     display.syntax_err()
                 number = 0
 
-        elif s[i].isdigit():
+        elif s[i].isdigit() and not stored:
             if number == 0:
                 display.syntax_err()
-            else:
-                value = value * 10 + ord(s[i]) - 48
+            if decimals == 0:
+                value = value * 10 + int(s[i])
                 number = 1
-            if i + 1 >= len(s) and not stored:
+            else:
+                value = value + int(s[i]) / (10 ** decimals)
+                decimals += 1
+            if i + 1 >= len(s):
                 settings.cp += assign_value(value, signed)
 
+        elif s[i] == '.':
+            if decimals > 0 or number != 1:
+                display.syntax_err()
+            decimals = 1
+
         elif s[i] == 'x' or s[i] == 'X':
-            power_checks(s, i)
             if value == 0:
                 if number == -1:
                     value = 1
@@ -98,6 +131,8 @@ def parse_equation(s):
     settings.a = settings.a - settings.ap
     settings.b = settings.b - settings.bp
     settings.c = settings.c - settings.cp
+
+    degrees_checks()
 
     if not settings.a and not settings.b:
         if settings.c:

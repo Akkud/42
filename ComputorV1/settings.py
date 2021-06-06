@@ -7,6 +7,7 @@ def init():
     global bp
     global c
     global cp
+    global degrees
     global delta
 
     a = 0
@@ -15,4 +16,5 @@ def init():
     bp = 0
     c = 0
     cp = 0
+    degrees = {}
     delta = 0

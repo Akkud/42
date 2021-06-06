@@ -17,7 +17,9 @@ def reduced_fraction(numerator, denominator):
     smallest = numerator if numerator <= denominator else denominator
     for i in range(smallest, 1, -1):
         if numerator % i == 0 and denominator % i == 0:
-            return res + str(int(numerator / i)) + '/' + str(int(denominator / i))
+            if numerator % 1 == 0 and denominator % 1 == 0:
+                return res + str(int(numerator / i)) + '/' + str(int(denominator / i))
+            return res + str(numerator / i) + '/' + str(denominator / i)
     return res + str(numerator) + '/' + str(denominator)
 
 
