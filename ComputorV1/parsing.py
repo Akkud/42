@@ -6,6 +6,7 @@ import display
 
 def degrees_checks():
     for k, v in settings.degrees.items():
+        print('\n\nk =', k, 'v =', v, '\n\n')
         if v != 0:
             display.polynomial_degree_err()
 
@@ -48,10 +49,11 @@ def x_case(s, index, value, signed, equal):
         else:
             settings.c += assign_value(value, signed)
     else:
+        v = value
+        if signed:
+            v = v * -1
         if equal:
-            v = value * -1
-        else:
-            v = value
+            v = v * -1
         if degree in settings.degrees:
             settings.degrees[degree] += v
         else:
