@@ -20,8 +20,6 @@ def x_case(s, index, value, signed, equal):
     i = index
     degree = 0
 
-    # print('x case, value =', value, '\nsigned =', signed, '\nequal =', equal, '\ns[i] =', s[i], '\n\n')
-
     if i + 1 >= len(s) or not s[i + 1].isdigit():
         if equal:
             settings.bp += assign_value(value, signed)
@@ -29,11 +27,6 @@ def x_case(s, index, value, signed, equal):
             settings.b += assign_value(value, signed)
         return
     i += 1
-
-    if s[i] == '^':
-        if i + 1 >= len(s) or not s[i + 1].isdigit():
-            display.syntax_err()
-        i += 1
 
     while i < len(s) and s[i].isdigit():
         degree = degree * 10 + int(s[i])
@@ -65,13 +58,14 @@ def x_case(s, index, value, signed, equal):
             settings.degrees[degree] = v
 
 
-def parse_equation(s):
+def parse_equation(args):
     value = 0
     number = -1
     equal = False
     signed = False
     stored = False
     decimals = 0
+    s = args.replace('^', '')
 
     for i in range(len(s)):
         if s[i] == '=' or s[i] == '+' or s[i] == '-' or s[i] == '*' or s[i] == ' ' or s[i] == '.':
