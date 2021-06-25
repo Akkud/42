@@ -6,7 +6,6 @@ import display
 
 def degrees_checks():
     for k, v in settings.degrees.items():
-        print('\n\nk =', k, 'v =', v, '\n\n')
         if v != 0:
             display.polynomial_degree_err()
 
